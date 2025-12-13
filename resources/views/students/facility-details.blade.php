@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,9 +33,8 @@
     <div class="facility-container">
 
       <!-- Facility Image -->
-      <img src="{{ asset('uploads/facilities/' . $facility->image) }}" 
-           alt="{{ $facility->faculty_name }}" 
-           class="facility-img">
+      <img src="{{ asset('uploads/facilities/' . $facility->image) }}" alt="{{ $facility->faculty_name }}"
+        class="facility-img">
 
       <!-- Facility Details -->
       <div class="facility-details">
@@ -42,19 +42,19 @@
 
         <p><strong>Type:</strong> <span class="facility-type">{{ $facility->type }}</span></p>
         <p><strong>Location:</strong> <span class="facility-location">{{ $facility->location }}</span></p>
-        <p><strong>Availability:</strong> 
+        <p><strong>Availability:</strong>
           <span class="availability">{{ $facility->status ?? 'Available' }}</span>
         </p>
-        <p><strong>Time Limit:</strong> 
+        <p><strong>Time Limit:</strong>
           <span class="facility-time">{{ $facility->time_open }}</span>
         </p>
 
         <div>
-            <a href="{{ route('students.booking-form.create', $facility->id) }}">
-          <button class="reserve-btn">Reserve</button>
-        </a>
+          <a href="{{ route('students.booking-form.create', $facility->id) }}">
+            <button class="reserve-btn">Reserve</button>
+          </a>
         </div>
-        
+
       </div>
 
     </div> <!-- .facility-container -->
@@ -65,14 +65,15 @@
   </div>
 
   <script>
-      window.routes = {
-          welcome: "{{ route('students.welcome') }}",
-          studentNotifications: "{{ route('students.notifications') }}",
-          bookings: "{{ route('students.booking-history') }}",
-          profile: "{{ route('students.profile') }}"
-      };
+    window.routes = {
+      welcome: "{{ route('students.welcome') }}",
+      studentNotifications: "{{ route('students.notifications') }}",
+      bookings: "{{ route('students.booking-history') }}",
+      profile: "{{ route('students.profile') }}"
+    };
   </script>
 
   <script src="{{ asset('js/student-script.js') }}"></script>
 </body>
+
 </html>

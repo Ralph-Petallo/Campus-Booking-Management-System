@@ -1,63 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SNSU Portal</title>
   <link rel="stylesheet" href="{{asset('css/style.css')}}" />
 </head>
+
 <body class="profile-set">
-    <div class="overlay"></div>
-    <div class="container">
+  <div class="overlay"></div>
+  <div class="container">
     <!-- Header Section -->
     <!-- TOP GREEN BAR -->
     <header class="topbar">
-        <nav class="nav">
-            <ul class="nav-list">
-                <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                <li><a href="{{ route('admin.facilities') }}">Facilities</a></li>
-                <li><a href="{{ route('admin.booking') }}">Bookings</a></li>
-                <li><a href="{{ route('admin.notifications') }}">Notifications</a></li>
-                <li><a href="{{ route('admin.profile') }}">Profile</a></li>
-            </ul>
-        </nav>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
+          <li><a href="{{ route('admin.facilities') }}">Facilities</a></li>
+          <li><a href="{{ route('admin.booking') }}">Bookings</a></li>
+          <li><a href="{{ route('admin.notifications') }}">Notifications</a></li>
+          <li><a href="{{ route('admin.profile') }}">Profile</a></li>
+        </ul>
+      </nav>
     </header>
     <!-- LOGO OVERLAY (sits on top of green bar) -->
-  <div class="logo-overlay">
-    <img src="{{asset('assets/logo.png')}}" alt="SNSU Logo" />
-  </div>
+    <div class="logo-overlay">
+      <img src="{{asset('assets/logo.png')}}" alt="SNSU Logo" />
+    </div>
 
     <!-- Overlay Panel -->
     <div class="overlay-prof">
       <div class="profile-container">
-          <div class="profile-preview">
-              <img id="profilePic" src="assets/hunter-x.jpg" alt="Profile Picture">
-          </div>
+        <div class="profile-preview">
+          <img id="profilePic" src="assets/hunter-x.jpg" alt="Profile Picture">
+        </div>
 
-          <button id="openProfilePopup" class="change-profile-btn">
-              Change Profile
-          </button>
+        <button id="openProfilePopup" class="change-profile-btn">
+          Change Profile
+        </button>
       </div>
 
       <div class="profile-overlay" id="profileOverlay">
-          <div class="profile-popup">
+        <div class="profile-popup">
 
-              <h3>Change Profile Picture</h3>
+          <h3>Change Profile Picture</h3>
 
-              <div class="preview-box">
-                  <img id="previewImage" src="assets/default-profile.png" alt="Preview">
-              </div>
-
-              <input type="file" id="profileInput" accept="image/*" style="display:none;">
-
-              <button id="chooseFileBtn" class="choose-btn">Choose File</button>
-
-              <div class="popup-actions">
-                  <button id="saveProfileBtn" class="save-btn">Save</button>
-                  <button id="closeProfilePopup" class="cancel-btn">Cancel</button>
-              </div>
-
+          <div class="preview-box">
+            <img id="previewImage" src="assets/default-profile.png" alt="Preview">
           </div>
+
+          <input type="file" id="profileInput" accept="image/*" style="display:none;">
+
+          <button id="chooseFileBtn" class="choose-btn">Choose File</button>
+
+          <div class="popup-actions">
+            <button id="saveProfileBtn" class="save-btn">Save</button>
+            <button id="closeProfilePopup" class="cancel-btn">Cancel</button>
+          </div>
+
+        </div>
       </div>
 
       <!-- Personal Information Overlay -->
@@ -104,7 +106,7 @@
     </div>
     <!-- Center Logo -->
     <div class="center-logo">
-        <img src="{{asset('assets/logo.png')}}" alt="SNSU-LOGO">
+      <img src="{{asset('assets/logo.png')}}" alt="SNSU-LOGO">
     </div>
     <!-- Bottom Logos -->
     <div class="bottom-logos">
@@ -115,11 +117,12 @@
       <img src="{{asset('assets/cte.png')}}" alt="Logo 5">
     </div>
   </div>
-<script>
+  <script>
     const routes = {
-        login: "{{ route('admin.login') }}"
+      login: "{{ route('admin.login') }}"
     };
-</script>
-<script src="{{asset('js/script.js')}}"></script>
+  </script>
+  <script src="{{asset('js/script.js')}}"></script>
 </body>
+
 </html>

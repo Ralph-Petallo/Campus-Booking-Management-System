@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\StudentsHomeController;
+use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityManagerController;
@@ -21,10 +23,6 @@ Route::delete('/admin/facilities/delete/{id}', [FacilityController::class, 'dest
 // ===================== STATIC PAGES =====================
 
 // Home / Welcome
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/admin/welcome', function () {
     return view('admin.welcome');
 })->name('admin.welcome');
@@ -103,19 +101,21 @@ Route::get('/admin/profile', function () {
 Route::get('/admin/facility/{id}', [FacilityManagerController::class, 'facilityView'])
     ->name('admin.facility.view');
 
-//STUDENTS SIDE
 
-Route::prefix('students')->name('students.')->group(function () {
+
+
+//===================STUDENTS SIDE============================================================
+
+Route::prefix('students')->group(function () {
     Route::get('/login', function () {
         return view('students.login');
     })->name('login');
 
-    Route::get('/homepage', [\App\Http\Controllers\StudentsHomeController::class, 'index'])
+    Route::get('/homepage', [StudentsHomeController::class, 'index'])
         ->name('homepage');
 
-    Route::get('/booking-history', function () {
-        return view('students.booking-history');
-    })->name('booking-history');
+    Route::get('/booking-history', [BookingController::class, 'history'])
+        ->name('booking-history');
 
     Route::get('/profile', function () {
         return view('students.profile');
@@ -128,7 +128,7 @@ Route::prefix('students')->name('students.')->group(function () {
     Route::get('/profile-account', function () {
         return view('students.profile-account');
     })->name('profile-account');
-    
+
     Route::get('/profile-info', function () {
         return view('students.profile-info');
     })->name('profile-info');
@@ -150,7 +150,7 @@ Route::prefix('students')->name('students.')->group(function () {
     })->name('booking-confirmation');
 
     // Facility details route — do NOT nest another prefix
-    Route::get('/facility-details/{id}', [\App\Http\Controllers\FacilityController::class, 'show'])
+    Route::get('/facility-details/{id}', [FacilityController::class, 'show'])
         ->name('facility-details');
 
     Route::get('/booking-form/create/{facility}', [BookingController::class, 'create'])
@@ -158,14 +158,14 @@ Route::prefix('students')->name('students.')->group(function () {
 
     Route::post('/booking-form/store/{facility}', [BookingController::class, 'store'])
         ->name('booking-form.store');
-    
-    Route::post('/login-process', [\App\Http\Controllers\StudentLoginController::class, 'login'])
-    ->name('login.process');
+
+    Route::post('/login-process', [StudentLoginController::class, 'login'])
+        ->name('login.process');
 
     Route::post('/students/booking/storeBook', [BookingController::class, 'storeBook'])
-    ->name('students.booking-form.storeBook');
+        ->name('students.booking-form.storeBook');
 
     Route::get('/students/bookings/history', [BookingController::class, 'history'])
-    ->name('students.booking-history');
+        ->name('students.booking-history');
 
 });

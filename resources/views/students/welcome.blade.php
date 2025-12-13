@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Welcome Page</title>
   <link rel="stylesheet" href="{{ asset('css/student-style.css') }}">
 </head>
+
 <body>
 
   <div class="landing-overlay">
@@ -24,17 +26,18 @@
       </a>
     </div>
 
-</div>
+  </div>
 
-<script>
+  <script>
     window.routes = {
-        welcome: "{{ route('students.welcome') }}",
-        studentNotifications: "{{ route('students.notifications') }}",
-        bookings: "{{ route('students.booking-history') }}",
-        profile: "{{ route('students.profile') }}"
+      welcome: "{{ route('students.welcome') }}",
+      studentNotifications: "{{ route('students.notifications') }}",
+      bookings: "{{ route('students.booking-history') }}",
+      profile: "{{ route('students.profile') }}"
     };
-</script>
+  </script>
 
-<script src="{{ asset('js/student-script.js') }}"></script>
+  <script src="{{ asset('js/student-script.js') }}"></script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="{{ asset('css/style-global.css') }}">
   <link rel="stylesheet" href="{{ asset('css/student-style.css') }}">
 </head>
+
 <body>
   <div class="overlay"></div>
 
@@ -15,19 +17,19 @@
 
     <!-- Header -->
     <header class="topbar">
-        <nav class="nav">
-            <ul class="nav-list">
-                <li><a href="{{ route('students.homepage') }}">Home</a></li>
-                <li><a href="{{ route('students.booking-history') }}">Bookings</a></li>
-                <li><a href="{{ route('students.notifications') }}">Notifications</a></li>
-                <li><a href="{{ route('students.profile') }}">Profile</a></li>
-            </ul>
-        </nav>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="{{ route('students.homepage') }}">Home</a></li>
+          <li><a href="{{ route('students.booking-history') }}">Bookings</a></li>
+          <li><a href="{{ route('students.notifications') }}">Notifications</a></li>
+          <li><a href="{{ route('students.profile') }}">Profile</a></li>
+        </ul>
+      </nav>
     </header>
 
     <!-- Logo -->
     <div class="logo-overlay">
-        <img src="{{ asset('images/snsu-logo.png') }}" alt="SNSU Logo" />
+      <img src="{{ asset('images/snsu-logo.png') }}" alt="SNSU Logo" />
     </div>
 
     <!-- Edit Profile Form -->
@@ -35,35 +37,37 @@
       <button class="back-btn" id="backBtn">← Back</button>
 
       <h2>Edit Profile</h2>
-        <label for="editName">Full Name</label>
-        <input type="text" id="editName" name="name" value="{{ $user->name ?? 'Benny Basil' }}" required>
+      <label for="editName">Full Name</label>
+      <input type="text" id="editName" name="name" value="{{ $user->name ?? 'Benny Basil' }}" required>
 
-        <label for="editEmail">Email</label>
-        <input type="email" id="editEmail" name="email" value="{{ $user->email ?? 'bbasil@ssct.edu.ph' }}" required>
+      <label for="editEmail">Email</label>
+      <input type="email" id="editEmail" name="email" value="{{ $user->email ?? 'bbasil@ssct.edu.ph' }}" required>
 
-        <label for="editCourse">Course</label>
-        <input type="text" id="editCourse" name="course" value="{{ $user->course ?? 'BS in Information Technology' }}" required>
+      <label for="editCourse">Course</label>
+      <input type="text" id="editCourse" name="course" value="{{ $user->course ?? 'BS in Information Technology' }}"
+        required>
 
-        <div class="form-buttons">
-          <button type="submit" class="btn blue">Save Changes</button>
-          <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
-        </div>
+      <div class="form-buttons">
+        <button type="submit" class="btn blue">Save Changes</button>
+        <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+      </div>
       </form>
     </main>
 
-</div>
+  </div>
 
-<script>
+  <script>
     window.routes = {
-        studentNotifications: "{{ route('students.notifications') }}",
-        profileEdit: "{{ route('students.profile-edit') }}",
-        bookings: "{{ route('students.booking-history') }}",
-        profileAccount: "{{ route('students.profile-account') }}",
-        profile: "{{ route('students.profile') }}"
+      studentNotifications: "{{ route('students.notifications') }}",
+      profileEdit: "{{ route('students.profile-edit') }}",
+      bookings: "{{ route('students.booking-history') }}",
+      profileAccount: "{{ route('students.profile-account') }}",
+      profile: "{{ route('students.profile') }}"
     };
-</script>
+  </script>
 
-<script src="{{ asset('js/student-script.js') }}"></script>
+  <script src="{{ asset('js/student-script.js') }}"></script>
 
 </body>
+
 </html>

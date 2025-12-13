@@ -49,17 +49,23 @@
         </thead>
 
         <tbody>
-            @foreach ($bookings as $booking)
-            <tr>
-                <td>{{ $booking->student_id }}</td>
-                <td>{{ $booking->student_name }}</td>
-                <td>{{ $booking->facility }}</td>
-                <td>{{ $booking->date }}</td>
-                <td>{{ $booking->time_in }}</td>
-                <td>{{ $booking->time_out }}</td>
+        @if($bookings->isEmpty())
+        <tr>
+            <td colspan="7" style="text-align:center;">No bookings yet</td>
+        </tr>
+        @else
+        @foreach ($bookings as $booking)
+        <tr>
+            <td>{{ $booking->student_id }}</td>
+            <td>{{ $booking->student_name }}</td>
+            <td>{{ $booking->facility }}</td>
+            <td>{{ $booking->date }}</td>
+            <td>{{ $booking->time_in }}</td>
+            <td>{{ $booking->time_out }}</td>
             <td><span class="status">{{ $booking->status }}</span></td>
         </tr>
         @endforeach
+        @endif
         </tbody>
     </table>
 </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,87 +15,84 @@
 
   <div class="container">
 
-      <!-- Header -->
-      <header class="topbar">
-          <nav class="nav">
-              <ul class="nav-list">
-                  <li><a href="{{ route('students.homepage') }}">Home</a></li>
-                  <li><a href="{{ route('students.booking-history') }}">Bookings</a></li>
-                  <li><a href="{{ route('students.notifications') }}">Notifications</a></li>
-                  <li><a href="{{ route('students.profile') }}">Profile</a></li>
-              </ul>
-          </nav>
-      </header>
+    <!-- Header -->
+    <header class="topbar">
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="{{ route('students.homepage') }}">Home</a></li>
+          <li><a href="{{ route('students.booking-history') }}">Bookings</a></li>
+          <li><a href="{{ route('students.notifications') }}">Notifications</a></li>
+          <li><a href="{{ route('students.profile') }}">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
 
-      <!-- Logo -->
-      <div class="logo-overlay">
-          <img src="{{ asset('images/snsu-logo.png') }}" alt="SNSU Logo" />
-      </div>
+    <!-- Logo -->
+    <div class="logo-overlay">
+      <img src="{{ asset('images/snsu-logo.png') }}" alt="SNSU Logo" />
+    </div>
 
 
-      <main class="main-wrap">
+    <main class="main-wrap">
 
-        <!-- LEFT SIDE PROFILE PANEL -->
-        <aside class="left-panel">
+      <!-- LEFT SIDE PROFILE PANEL -->
+      <aside class="left-panel">
 
-          <!-- Profile Picture -->
-          <div class="profile-photo">
-            <img 
-              id="profileImage" 
-              src="{{ asset('images/profile.jpg') }}" 
-              alt="Profile Photo"
-            >
+        <!-- Profile Picture -->
+        <div class="profile-photo">
+          <img id="profileImage" src="{{ asset('images/profile.jpg') }}" alt="Profile Photo">
 
-            <input type="file" id="uploadPhoto" accept="image/*" hidden>
-            <button class="btn-small" id="changePhotoBtn">Change Photo</button>
-          </div>
-
-          <!-- User Info -->
-          <h2 id="userName">{{ $user->name ?? 'Benny Basil' }}</h2>
-          <p id="userEmail">{{ $user->email ?? 'bbasil@ssct.edu.ph' }}</p>
-          <p id="userCourse">{{ $user->course ?? 'BS in Information Technology' }}</p>
-
-          <!-- Menu Buttons -->
-        <div class="menu-buttons">
-            <button class="menu-btn" id="editProfileBtn">Edit Profile</button>
-            <button class="menu-btn" id="bookingHistoryBtn">Booking History</button>
-            <button class="menu-btn" id="accountBtn">Account</button>
-
-            <button id="logoutBtn" class="logout-btn">Logout</button>
-
-            </form>
+          <input type="file" id="uploadPhoto" accept="image/*" hidden>
+          <button class="btn-small" id="changePhotoBtn">Change Photo</button>
         </div>
 
-        </aside>
+        <!-- User Info -->
+        <h2 id="userName">{{ $user->name ?? 'Benny Basil' }}</h2>
+        <p id="userEmail">{{ $user->email ?? 'bbasil@ssct.edu.ph' }}</p>
+        <p id="userCourse">{{ $user->course ?? 'BS in Information Technology' }}</p>
 
-      </main>
+        <!-- Menu Buttons -->
+        <div class="menu-buttons">
+          <button class="menu-btn" id="editProfileBtn">Edit Profile</button>
+          <button class="menu-btn" id="bookingHistoryBtn">Booking History</button>
+          <button class="menu-btn" id="accountBtn">Account</button>
+
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+
+          </form>
+        </div>
+
+      </aside>
+
+    </main>
   </div>
 
-    <script>
+  <script>
     window.routes = {
-        login: "{{ route('students.login') }}",
-        profileEdit: "{{ route('students.profile-edit') }}",
-        profileAccount: "{{ route('students.profile-account') }}",
-        profile: "{{ route('students.profile') }}",
-        bookingHistory: "{{ route('students.booking-history') }}"
+      login: "{{ route('students.login') }}",
+      profileEdit: "{{ route('students.profile-edit') }}",
+      profileAccount: "{{ route('students.profile-account') }}",
+      profile: "{{ route('students.profile') }}",
+      bookingHistory: "{{ route('students.booking-history') }}"
     };
-    </script>
+  </script>
 
   <script src="{{ asset('js/student-script.js') }}"></script>
 
   <script>
-      // Photo upload logic
-      document.getElementById("changePhotoBtn").onclick = () => {
-          document.getElementById("uploadPhoto").click();
-      };
+    // Photo upload logic
+    document.getElementById("changePhotoBtn").onclick = () => {
+      document.getElementById("uploadPhoto").click();
+    };
 
-      document.getElementById("uploadPhoto").onchange = (event) => {
-          const file = event.target.files[0];
-          if (file) {
-              document.getElementById("profileImage").src = URL.createObjectURL(file);
-          }
-      };
+    document.getElementById("uploadPhoto").onchange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        document.getElementById("profileImage").src = URL.createObjectURL(file);
+      }
+    };
   </script>
 
 </body>
+
 </html>

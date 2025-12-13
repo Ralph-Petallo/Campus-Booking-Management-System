@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>{{ $facility->faculty_name }} — Admin</title>
-  <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ $facility->faculty_name }} — Admin</title>
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" />
 </head>
 
 <body>
@@ -36,7 +37,8 @@
             <!-- LEFT IMAGE -->
             <section class="left">
                 <div class="photo-card">
-                    <img src="{{ asset('uploads/facilities/' . $facility->image) }}" alt="{{ $facility->faculty_name }}" />
+                    <img src="{{ asset('uploads/facilities/' . $facility->image) }}"
+                        alt="{{ $facility->faculty_name }}" />
                 </div>
             </section>
 
@@ -57,12 +59,13 @@
         </div>
     </main>
 
-<script>
-const routes = {
-    dashboard: "{{ route('admin.dashboard') }}"
-};
-</script>
+    <script>
+        const routes = {
+            dashboard: "{{ route('admin.dashboard') }}"
+        };
+    </script>
 
-<script src="{{asset('js/script.js')}}"></script>
+    <script src="{{asset('js/script.js')}}"></script>
 </body>
+
 </html>

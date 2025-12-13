@@ -7,7 +7,8 @@ use App\Models\Facility;
 
 class DashboardController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         // Get all facilities
         $facilities = Facility::all();
 

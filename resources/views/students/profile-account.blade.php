@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
 
   <link rel="stylesheet" href="{{ asset('css/student-style.css') }}">
 </head>
+
 <body class="bookingbody">
 
   <div class="overlay"></div>
@@ -15,19 +17,19 @@
 
     <!-- Header -->
     <header class="topbar">
-        <nav class="nav">
-            <ul class="nav-list">
-                <li><a href="{{ route('student.home') }}">Home</a></li>
-                <li><a href="{{ route('student.bookings') }}">Bookings</a></li>
-                <li><a href="{{ route('student.notifications') }}">Notifications</a></li>
-                <li><a href="{{ route('student.profile') }}" class="active">Profile</a></li>
-            </ul>
-        </nav>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="{{ route('student.home') }}">Home</a></li>
+          <li><a href="{{ route('student.bookings') }}">Bookings</a></li>
+          <li><a href="{{ route('student.notifications') }}">Notifications</a></li>
+          <li><a href="{{ route('student.profile') }}" class="active">Profile</a></li>
+        </ul>
+      </nav>
     </header>
 
     <!-- Logo -->
     <div class="logo-overlay">
-        <img src="{{ asset('images/snsu-logo.png') }}" alt="SNSU Logo" />
+      <img src="{{ asset('images/snsu-logo.png') }}" alt="SNSU Logo" />
     </div>
 
     <!-- Account Settings Form -->
@@ -56,19 +58,20 @@
 
   </div>
 
-<script>
+  <script>
     window.routes = {
-        welcome: "{{ route('students.welcome') }}",
-        logout: "{{ route('logout') }}",
-        studentNotifications: "{{ route('student.notifications') }}",
-        profileEdit: "{{ route('student.profile.edit') }}",
-        bookings: "{{ route('student.bookings') }}",
-        profileAccount: "{{ route('student.profile.account') }}",
-        profile: "{{ route('student.profile') }}"
+      welcome: "{{ route('students.welcome') }}",
+      logout: "{{ route('logout') }}",
+      studentNotifications: "{{ route('student.notifications') }}",
+      profileEdit: "{{ route('student.profile.edit') }}",
+      bookings: "{{ route('student.bookings') }}",
+      profileAccount: "{{ route('student.profile.account') }}",
+      profile: "{{ route('student.profile') }}"
     };
-</script>
+  </script>
 
-<script src="{{ asset('js/student-script.js') }}"></script>
+  <script src="{{ asset('js/student-script.js') }}"></script>
 
 </body>
+
 </html>

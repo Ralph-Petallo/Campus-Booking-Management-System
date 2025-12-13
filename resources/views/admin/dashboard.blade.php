@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
+
 <body>
     <div class="overlay"></div>
     <!-- TOP GREEN BAR -->
@@ -35,14 +37,20 @@
     <main class="dashboard-class">
 
         <!-- ===== DYNAMIC FACILITIES FROM DATABASE ===== -->
-        @foreach($facilities as $facility)
-    <section class="room">
-        <h2>{{ $facility->faculty_name }}</h2>
-        <img src="{{ asset('uploads/facilities/' . $facility->image) }}" alt="{{ $facility->faculty_name }}">
-        <li><a href="{{ route('admin.facility.view', $facility->id) }}" class="btn">Manage</a></li>
+        <section class="facilities-section">
 
-    @endforeach
+            @foreach($facilities as $facility)
+                <div class="facility-card">
+                    <img src="{{ asset('uploads/facilities/' . $facility->image) }}" alt="{{ $facility->faculty_name }}">
+                    <h2>{{ $facility->faculty_name }}</h2>
+                    <a href="{{ route('students.facility-details', $facility->id) }}">
+                        <button>DISCOVER</button>
+                    </a>
+                </div>
+            @endforeach
 
+        </section>
     </main>
 </body>
+
 </html>

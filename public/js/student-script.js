@@ -15,13 +15,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // -----------------------------
     const logoutBtn = document.getElementById('logoutBtn');
 
-    logoutBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        if (confirm("Are you sure you want to log out?")) {
-            // Redirect directly to login page
-            window.location.href = windows.route.login;
-        }
-    });
+  if (logoutBtn) {
+      logoutBtn.addEventListener('click', function (event) {
+          event.preventDefault();
+
+          if (confirm("Are you sure you want to log out?")) {
+              window.location.href = window.routes.login;
+          }
+      });
+  }
 
     // -----------------------------
     // OK BUTTON → NOTIFICATIONS

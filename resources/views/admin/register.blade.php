@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+
 <body class="register-body">
   <div class="container">
     <div class="form-box">
@@ -44,4 +46,5 @@
 
   <script src="{{ asset('js/script.js') }}"></script>
 </body>
+
 </html>

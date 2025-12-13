@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+
 <body>
     <div class="overlay"></div>
     <!-- TOP GREEN BAR -->
@@ -19,11 +21,11 @@
             </ul>
         </nav>
     </header>
-    
+
     <!-- LOGO OVERLAY -->
-  <div class="logo-overlay">
-    <img src="{{asset('assets/logo.png')}}" alt="SNSU Logo" />
-  </div>
+    <div class="logo-overlay">
+        <img src="{{asset('assets/logo.png')}}" alt="SNSU Logo" />
+    </div>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main>
@@ -49,7 +51,7 @@
                         <td>9:00 A.M</td>
                         <td>12:00 NN</td>
                         <td>
-                        
+
                             <button class="confirm">CONFIRM</button>
                             <button class="cancel">CANCEL</button>
                         </td>
@@ -62,7 +64,7 @@
                         <td>13:00 A.M</td>
                         <td>21:00 NN</td>
                         <td>
-                        
+
                             <button class="confirm">CONFIRM</button>
                             <button class="cancel">CANCEL</button>
                         </td>
@@ -71,6 +73,7 @@
             </table>
         </div>
     </main>
-<script src="{{asset('js/script.js')}}"></script>
+    <script src="{{asset('js/script.js')}}"></script>
 </body>
+
 </html>

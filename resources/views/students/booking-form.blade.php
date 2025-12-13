@@ -68,7 +68,7 @@
             </table>
 
             <div class="btn-container">
-                <a href="{{ route('students.facility', $facility->id) }}" class="cancel-btn">Cancel</a>
+                <a href="{{ route('students.facility-details', $facility->id) }}" class="cancel-btn">Cancel</a>
                 <button type="submit" class="book-btn">Book</button>
             </div>
         </form>

@@ -7,12 +7,14 @@ use App\Models\Facility;
 
 class FacilityController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $facilities = Facility::all();
         return view('admin.facilities', compact('facilities'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'faculty_name' => 'required',
             'type' => 'required',
@@ -34,7 +36,8 @@ class FacilityController extends Controller
         return redirect()->back();
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $facility = Facility::findOrFail($id);
 
         $request->validate([
@@ -62,12 +65,14 @@ class FacilityController extends Controller
         return redirect()->back();
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         Facility::findOrFail($id)->delete();
         return redirect()->back();
     }
 
-    private function uploadImage($request) {
+    private function uploadImage($request)
+    {
         if (!$request->hasFile('image')) {
             return 'default.png';
         }
@@ -78,8 +83,8 @@ class FacilityController extends Controller
     }
 
     public function show($id)
-{
-    $facility = Facility::findOrFail($id); // fetch from database
-    return view('students.facility-details', compact('facility'));
-}
+    {
+        $facility = Facility::findOrFail($id); // fetch from database
+        return view('students.facility-details', compact('facility'));
+    }
 }
