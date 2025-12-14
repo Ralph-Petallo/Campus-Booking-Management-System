@@ -56,16 +56,20 @@
       <div class="overlay" id="personalOverlay">
         <div class="popup">
           <h3>Personal Information</h3>
-          <label>Name:</label>
-          <input type="text" id="personalName" placeholder="Your Name">
-          <label>Email:</label>
-          <input type="email" id="personalEmail" value="user@example.com" disabled>
-          <label>Faculty ID:</label>
-          <input type="text" id="facultyId" value="FAC12345" disabled>
-          <div class="popup-actions">
-            <button id="savePersonal" class="save-btn">Save</button>
-            <button id="closePersonal" class="cancel-btn">Cancel</button>
-          </div>
+          <form action="">
+            <label>Name:</label>
+            <input type="text" id="personalName" value="{{$admin->username}}">
+            <label>Email:</label>
+            <input type="email" id="personalEmail" value="{{ $admin->email }}">
+            <label>Faculty ID:</label>
+            <input type="text" id="facultyId" value="{{$admin->id}}">
+            <label>Role:</label>
+            <input type="text" id="facultyRole" value="{{$admin->role}}" readonly disabled>
+            <div class="popup-actions">
+              <button type="submit" id="savePersonal" class="save-btn">Save</button>
+              <button id="closePersonal" class="cancel-btn">Cancel</button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -87,16 +91,11 @@
       </div>
 
       <div class="buttons">
-        <a href="#" class="btn">Admin</a>
         <button class="btn" id="personalBtn">Personal Information</button>
         <a href="{{ route('bookinghistory') }}" class="btn">Booking History</a>
         <button class="btn" id="accountBtn">Account</button>
         <button class="btn-logout">Logout</button>
       </div>
-    </div>
-    <!-- Center Logo -->
-    <div class="center-logo">
-      <img src="{{asset('assets/logo.png')}}" alt="SNSU-LOGO">
     </div>
     <!-- Bottom Logos -->
     <div class="bottom-logos">
@@ -108,9 +107,6 @@
     </div>
   </div>
   <script>
-    const routes = {
-      login: "{{ route('admin.login') }}"
-    };
   </script>
   <script src="{{asset('js/script.js')}}"></script>
 </body>

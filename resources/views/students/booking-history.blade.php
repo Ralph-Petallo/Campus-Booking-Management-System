@@ -21,7 +21,7 @@
 </div>
 
 <!-- MAIN CONTENT -->
-<a href="{{ route('students.homepage') }}" class="bookingback-btn">← Back to Home</a>
+<a href="{{ route('student.homepage') }}" class="bookingback-btn">← Back to Home</a>
 
 <div class="booking-wrapper">
     <div class="booking-header">Booking History...</div>

@@ -6,6 +6,8 @@ use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\StudentsHomeController;
 use App\Http\Controllers\FacilityManagerController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\AdminProfileController;
+
 
 
 //Admin side
@@ -31,7 +33,7 @@ Route::prefix('admin')
     ->group(function () {
 
         // Rooms
-        Route::get('/', [FacilityController::class, 'welcomePage'])->name('admin-welcome');
+        Route::get('/', [FacilityController::class, 'welcomePage'])->name('admin.welcome');
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('lrc', [FacilityController::class, 'lrc'])->name('lrc');
         Route::get('acadhall', [FacilityController::class, 'acadhall'])->name('acadhall');
@@ -42,8 +44,16 @@ Route::prefix('admin')
 
         // Booking pages
         Route::get('booking-history', [FacilityController::class, 'bookingHistory'])->name('bookinghistory');
-        Route::get('booking', [FacilityController::class, 'booking'])->name('booking');
         Route::get('bookings', [FacilityController::class, 'bookings'])->name('bookings');
+        Route::put(
+            'bookings/{id}/confirm',
+            [FacilityController::class, 'confirm']
+        )->name('admin.bookings.confirm');
+
+        Route::put(
+            'bookings/{id}/cancel',
+            [FacilityController::class, 'cancel']
+        )->name('admin.bookings.cancel');
 
         // Facilities
         Route::get('facilities/academic-hall', [FacilityController::class, 'academicHall'])
@@ -51,7 +61,7 @@ Route::prefix('admin')
 
         // Notifications & profile
         Route::get('notifications', [FacilityController::class, 'notifications'])->name('notifications');
-        Route::get('profile', [FacilityController::class, 'profile'])->name('profile');
+        Route::get('profile', [AdminProfileController::class, 'profile'])->name('profile');
 
         // Facility manager (dynamic)
         Route::get('facility/{id}', [FacilityManagerController::class, 'facilityView'])
@@ -74,12 +84,16 @@ Route::get('/login', function () {
     return view('students.login');
 })->name('login');
 
-Route::prefix('students')->middleware('auth:student')->group(function () {
+Route::post('/login-process', [StudentLoginController::class, 'login'])
+    ->name('student.login.process');
+
+
+Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::get('/welcome', function () {
         return view('students.welcome');
     })->name('student.welcome');
 
-    Route::get('/homepage', [StudentsHomeController::class, 'index'])
+    Route::get('/home-page', [StudentsHomeController::class, 'index'])
         ->name('student.homepage');
 
     Route::get('/profile', function () {
@@ -111,7 +125,7 @@ Route::prefix('students')->middleware('auth:student')->group(function () {
 
     // Facility details route — do NOT nest another prefix
     Route::get('/facility-details/{id}', [FacilityController::class, 'show'])
-        ->name('student.facilit_details');
+        ->name('student.facility_details');
 
     Route::get('/booking-form/create/{id}', [BookingController::class, 'create'])
         ->name('student.booking-form.create');
@@ -119,8 +133,7 @@ Route::prefix('students')->middleware('auth:student')->group(function () {
     Route::post('/booking-form/store/', [BookingController::class, 'store'])
         ->name('student.booking-form.store');
 
-    Route::post('/login-process', [StudentLoginController::class, 'login'])
-        ->name('login.process');
+
 
     Route::post('/booking/storeBook', [BookingController::class, 'storeBook'])
         ->name('student.booking-form.storeBook');

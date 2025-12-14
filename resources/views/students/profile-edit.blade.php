@@ -28,20 +28,21 @@
       <button class="back-btn" id="backBtn">← Back</button>
 
       <h2>Edit Profile</h2>
-      <label for="editName">Full Name</label>
-      <input type="text" id="editName" name="name" value="{{ $user->name ?? 'Benny Basil' }}" required>
+      <form action="">
+        <label for="editName">Full Name</label>
+        <input type="text" id="editName" name="name" value="{{ $user->name ?? 'Benny Basil' }}" required>
 
-      <label for="editEmail">Email</label>
-      <input type="email" id="editEmail" name="email" value="{{ $user->email ?? 'bbasil@ssct.edu.ph' }}" required>
+        <label for="editEmail">Email</label>
+        <input type="email" id="editEmail" name="email" value="{{ $user->email ?? 'bbasil@ssct.edu.ph' }}" required>
 
-      <label for="editCourse">Course</label>
-      <input type="text" id="editCourse" name="course" value="{{ $user->course ?? 'BS in Information Technology' }}"
-        required>
+        <label for="editCourse">Course</label>
+        <input type="text" id="editCourse" name="course" value="{{ $user->course ?? 'BS in Information Technology' }}"
+          required>
 
-      <div class="form-buttons">
-        <button type="submit" class="btn blue">Save Changes</button>
-        <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
-      </div>
+        <div class="form-buttons">
+          <button type="submit" class="btn blue">Save Changes</button>
+          <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+        </div>
       </form>
     </main>
 

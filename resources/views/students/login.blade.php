@@ -14,7 +14,7 @@
 
         <div class="login-card">
 
-            <form action="{{ route('login.process') }}" method="POST">
+            <form action="{{ route('student.login.process') }}" method="POST">
                 @csrf
 
                 <input type="email" name="email" placeholder="Email" required />

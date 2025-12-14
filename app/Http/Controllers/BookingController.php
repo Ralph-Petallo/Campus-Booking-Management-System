@@ -44,6 +44,7 @@ class BookingController extends Controller
     }
 
 
+
     public function storeBook(Request $request)
     {
         Booking::create([

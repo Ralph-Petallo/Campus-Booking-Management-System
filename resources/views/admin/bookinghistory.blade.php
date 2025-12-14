@@ -27,8 +27,7 @@
                     <tr>
                         <th colspan="7" class="history-header">Booking History</th>
                     </tr>
-                </thead>
-                <tbody>
+
                     <tr>
                         <td>Student ID</td>
                         <td>Student Name</td>
@@ -38,28 +37,25 @@
                         <td>Time Out</td>
                         <td>Status</td>
                     </tr>
-                    <tr>
-                        <td>2023-00157</td>
-                        <td>Benny Basil</td>
-                        <td>Conference Room</td>
-                        <td>09-35-2028</td>
-                        <td>9:00 A.M</td>
-                        <td>12:00 NN</td>
-                        <td>
-                            <button class="history-confirm">CONFIRMED</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2023-0123</td>
-                        <td>Triew Smsl</td>
-                        <td>Gym</td>
-                        <td>09-02-2099</td>
-                        <td>1:00 P.M</td>
-                        <td>9:00 P.M</td>
-                        <td>
-                            <button class="history-cancel">CANCELLED</button>
-                        </td>
-                    </tr>
+                </thead>
+                <tbody>
+                    @if($booking_history->count() > 0)
+                        @foreach ($booking_history as $booking)
+                            <tr>
+                                <td>{{ $booking->student_id }}</td>
+                                <td>{{ $booking->student_name }}</td>
+                                <td>{{ $booking->facility }}</td>
+                                <td>{{ $booking->date }}</td>
+                                <td>{{ $booking->time_in }}</td>
+                                <td>{{ $booking->time_out }}</td>
+                                <td><span class="status">{{ $booking->status }}</span></td>
+                            </tr>
+                        @endforeach
+
+                    @else
+                        <td colspan="7" class="history-header">No Booking History yet</td>
+                    @endif
+
                 </tbody>
             </table>
         </div>

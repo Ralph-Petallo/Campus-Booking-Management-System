@@ -25,7 +25,7 @@
       <div class="notif-box">
         <p><strong>Your booking has been confirmed!</strong> Please download your booking confirmation slip and present
           it to the facility administrator or staff.
-          <a href="{{ route('students.booking-confirmation') }}">Confirm</a>
+          <a href="{{ route('student.booking-confirmation') }}">Confirm</a>
       </div>
 
       <div class="confirmation-box hidden" id="confirmationBox">

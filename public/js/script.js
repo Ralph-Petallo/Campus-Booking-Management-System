@@ -30,24 +30,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const confirmed = confirm("Are you sure you want to confirm this booking?");
 
             if (confirmed) {
+                //CONFIRM BUTTON
+                document.querySelector('#confirmForm').addEventListener('load', function(event){
+                    event.preventDefault();
+
+                    const dataForm = new FormData(this);
+
+                    alert(dataForm);
+
+                });
+
                 btn.textContent = "Confirmed";
             } else {
                 btn.textContent = "Cancelled";
-            }
-
-            const row = btn.closest('tr');
-            disableRowButtons(row);
-        });
-    });
-
-    cancelBtns.forEach(btn => {
-        btn.addEventListener('click', function () {
-            const confirmed = confirm("Are you sure you want to cancel this booking?");
-
-            if (confirmed) {
-                btn.textContent = "Cancelled";
-            } else {
-                btn.textContent = "CONFIRM";
             }
 
             const row = btn.closest('tr');

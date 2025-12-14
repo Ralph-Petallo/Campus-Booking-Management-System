@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Facility;
 use App\Models\Admin;
+use App\Models\Booking;
 
 class FacilityController extends Controller
 {
@@ -54,16 +55,33 @@ class FacilityController extends Controller
     // Booking pages
     public function bookingHistory()
     {
-        return view('admin.bookinghistory');
-    }
-    public function booking()
-    {
-        return view('admin.booking');
+        $booking_history = Booking::all();
+        return view('admin.bookinghistory', compact('booking_history'));
     }
     public function bookings()
     {
-        return view('admin.bookings');
+        $bookings = Booking::all();
+        return view('admin.bookings', compact('bookings'));
     }
+
+    public function confirm($id)
+    {
+        Booking::where('id', $id)->update([
+            'status' => 'confirmed'
+        ]);
+
+        return back()->with('success', 'Booking confirmed.');
+    }
+
+    public function cancel($id)
+    {
+        Booking::where('id', $id)->update([
+            'status' => 'cancelled'
+        ]);
+
+        return back()->with('success', 'Booking cancelled.');
+    }
+
 
     // Facilities
     public function academicHall()
@@ -76,10 +94,7 @@ class FacilityController extends Controller
     {
         return view('admin.notifications');
     }
-    public function profile()
-    {
-        return view('admin.profile');
-    }
+
 
     public function loginRequest(Request $request)
     {
@@ -91,7 +106,7 @@ class FacilityController extends Controller
 
         if (Auth::guard('admin')->attempt($valid)) {
             $request->session()->regenerate();
-            return redirect()->route('welcome');
+            return redirect()->route('admin.welcome');
         }
 
         return redirect()->back()->with('error', 'Invalid credentials.');
@@ -113,7 +128,6 @@ class FacilityController extends Controller
 
         return redirect()->route('admin.login')->with('success', 'Registration successful. Please log in.');
     }
-
 
     public function index()
     {
@@ -141,7 +155,8 @@ class FacilityController extends Controller
             'image' => $fileName
         ]);
 
-        return redirect()->back()->with('success', 'Facility added successfully.'); ;
+        return redirect()->back()->with('success', 'Facility added successfully.');
+        ;
     }
 
     public function update(Request $request, $id)

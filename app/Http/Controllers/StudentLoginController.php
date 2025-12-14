@@ -33,6 +33,6 @@ class StudentLoginController extends Controller
         ]);
 
         // Redirect to homepage
-        return redirect()->route('students.welcome');
+        return redirect()->route('student.welcome');
     }
 }

@@ -25,7 +25,7 @@
         <div class="booking-form">
             <h2 class="form-header">Please fill out this form to process your booking...</h2>
 
-            <form action="{{ route('students.booking-form.store') }}" method="POST">
+            <form action="{{ route('student.booking-form.store') }}" method="POST">
                 @csrf
 
                 <table class="booking-table">
@@ -61,7 +61,7 @@
                 </table>
 
                 <div class="btn-container">
-                    <a href="{{ route('students.facility-details', $facility->id) }}" class="cancel-btn">Cancel</a>
+                    <a href="{{ route('student.facility-details', $facility->id) }}" class="cancel-btn">Cancel</a>
                     <button type="submit" class="book-btn">Book</button>
                 </div>
             </form>
