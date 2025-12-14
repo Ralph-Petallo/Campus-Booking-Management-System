@@ -190,7 +190,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 8%;
   }
   
   /* Top-left logo and motto */
@@ -673,10 +672,8 @@ nav a:hover {
     
   /* ===== NOTIFICATION CONTAINER ===== */
   .notif-container {
-    max-width: 1000px;
-    margin: 120px auto;
+    width: 100%;
     background-color: transparent;
-    padding: 40px 50px;
     border-radius: 0px;
     box-shadow: none;
   }
@@ -696,14 +693,10 @@ nav a:hover {
 
   /* ===== NOTIFICATION/S BOX ===== */
   .notif-box {
-    width: calc(130% + 250px);   /* extend 40px wider */
-    margin-left: -190px;         /* move left */
-    margin-right: -75px;        /* move right */
-    
+    width: auto;   /* extend 40px wider */
     background-color: #f7edb5;
     padding: 25px 40px;
     border-radius: 12px;
-    margin-top: 150px;
     margin-bottom: 25px;
 
     border-left: 6px solid #e6c200;
@@ -712,10 +705,6 @@ nav a:hover {
     line-height: 1.4;
   }
 
-
-  .notif-box strong {
-    color: #239c06;
-  }
 
   .notif-box a {
     color: #0066ff;
@@ -775,7 +764,8 @@ nav a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 45px;
+  padding-top: 50px;
 }
 
 .notif-card {
@@ -848,11 +838,28 @@ nav a:hover {
       background-color: #f9f9f9;
     }
 
-    .status {
+    .status-cancelled {
       display: inline-block;
       padding: 5px 15px;
-      background-color: orange;
-      color: white;
+      color: darkred;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .status-confirmed {
+      display: inline-block;
+      padding: 5px 15px;
+      color: darkgreen;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      display: inline-block;
+      padding: 5px 15px;
+      color: darkorange;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 600;

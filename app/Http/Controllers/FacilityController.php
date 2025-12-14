@@ -68,7 +68,7 @@ class FacilityController extends Controller
     public function confirm($id)
     {
         Booking::where('id', $id)->update([
-            'status' => 'confirmed'
+            'status' => 'CONFIRMED'
         ]);
 
         return back()->with('success', 'Booking confirmed.');
@@ -77,7 +77,7 @@ class FacilityController extends Controller
     public function cancel($id)
     {
         Booking::where('id', $id)->update([
-            'status' => 'cancelled'
+            'status' => 'CANCELLED'
         ]);
 
         return back()->with('success', 'Booking cancelled.');
@@ -137,6 +137,12 @@ class FacilityController extends Controller
     {
         $facilities = Facility::all();
         return view('admin.facilities', compact('facilities'));
+    }
+
+    public function dashBoard()
+    {
+        $facilities = Facility::all();
+        return view('admin.dashboard', compact('facilities'));
     }
 
     public function facilityView($id)

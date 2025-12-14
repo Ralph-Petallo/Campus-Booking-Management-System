@@ -6,6 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notifications | SNSU</title>
   <link rel="stylesheet" href="{{ asset('css/student-style.css') }}">
+
+  <style>
+    .pending {
+      color: darkorange;
+    }
+
+    .confirmed {
+      color: darkgreen;
+    }
+
+    .cancelled {
+      color: brown;
+    }
+  </style>
 </head>
 
 <body>
@@ -22,23 +36,34 @@
     <div class="notif-container">
       <p class="subtext">Check your booking updates and confirmation slips here.</p>
 
-      <div class="notif-box">
-        <p><strong>Your booking has been confirmed!</strong> Please download your booking confirmation slip and present
-          it to the facility administrator or staff.
-          <a href="{{ route('student.booking-confirmation') }}">Confirm</a>
-      </div>
+      @forelse($notifications as $notif)
+        <div class="notif-box ">
+          <p>
+            @if($notif->action === 'confirmed')
+              <strong class="confirmed">Your booking has been confirmed!</strong>
+              Please download your booking confirmation slip and present it to the facility administrator or staff.
+              <a href="{{ route('student.booking-confirmation', $notif->id) }}">View more.</a>
 
-      <div class="confirmation-box hidden" id="confirmationBox">
-        <p><strong>Greetings!</strong></p>
-        <p>
-          Please present this confirmation slip to the facility administrator or staff on the day of your scheduled use.
-          The staff may verify your booking details before allowing access.
-        </p>
+            @elseif($notif->action === 'cancelled')
+              <strong class="cancelled">Your booking has been cancelled.</strong>
+              If you have questions, please contact the administrator. <a
+                href="{{ route('student.booking-confirmation', $notif->id) }}">View more.</a>
 
-        <button id="downloadBtn" class="ok-btn">Download File</button>
-      </div>
-
+            @elseif($notif->action === 'reserved')
+              <strong class="pending">Your booking is pending approval.</strong>
+              Please wait for the administrator’s confirmation. <a
+                href="{{ route('student.booking-confirmation', $notif->id) }}">View
+                more.</a>
+            @endif
+          </p>
+        </div>
+      @empty
+        <div class="notif-box">
+          <p>No booking notifications yet.</p>
+        </div>
+      @endforelse
     </div>
+
 
   </div>
 

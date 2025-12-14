@@ -8,7 +8,7 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->string('password');
             $table->timestamps();
         });
-
     }
 
     /**

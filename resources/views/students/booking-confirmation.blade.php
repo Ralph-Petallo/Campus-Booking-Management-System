@@ -7,9 +7,11 @@
     <title>Booking Confirmation | SNSU</title>
 
     <link rel="stylesheet" href="{{ asset('css/student-style.css') }}">
-
-    <!-- html2pdf.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <style>
+        .download-btn {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,7 +29,7 @@
         </div>
 
         <!-- Confirmation Content -->
-        <div class="notif-container">
+        <main class="notif-container">
 
             <div class="confirmation-box" id="confirmationContent">
 
@@ -44,45 +46,70 @@
 
                 <div class="booking-confirmation">
 
-                    <h1>Your Bookings</h1>
+                    <h1>Booking Confirmation</h1>
 
-                    @if($bookings->count() > 0)
-                        @foreach($bookings as $booking)
-                            <div class="booking-details">
-                                <p><strong>Student Name:</strong> <span>{{ $booking->student_name }}</span></p>
-                                <p><strong>Student ID:</strong> <span>{{ $booking->student_id }}</span></p>
-                                <p><strong>Facility:</strong> <span>{{ $booking->facility }}</span></p>
-                                <p><strong>Date:</strong>
-                                    <span>{{ \Carbon\Carbon::parse($booking->date)->format('F d, Y') }}</span>
-                                </p>
-                                <p><strong>Time:</strong> <span>{{ \Carbon\Carbon::parse($booking->time_in)->format('h:i A') }}
-                                        - {{ \Carbon\Carbon::parse($booking->time_out)->format('h:i A') }}</span></p>
-                                <p><strong>Status:</strong>
-                                    <span class="status {{ strtolower($booking->status) }}">
-                                        {{ $booking->status ?? 'Pending' }}
-                                    </span>
-                                </p>
-                            </div>
-                            <hr>
-                        @endforeach
-                    @else
-                        <p>No bookings found.</p>
-                    @endif
+                    <div class="booking-details" id="booking-{{ $booking->id }}">
+                        <p><strong>Student Name:</strong> <span>{{ $booking->student_name }}</span></p>
+                        <p><strong>Student ID:</strong> <span>{{ $booking->student_id }}</span></p>
+                        <p><strong>Facility:</strong> <span>{{ $booking->facility }}</span></p>
+                        <p><strong>Date:</strong>
+                            <span>{{ \Carbon\Carbon::parse($booking->date)->format('F d, Y') }}</span>
+                        </p>
+                        <p><strong>Time:</strong>
+                            <span>
+                                {{ \Carbon\Carbon::parse($booking->time_in)->format('h:i A') }}
+                                -
+                                {{ \Carbon\Carbon::parse($booking->time_out)->format('h:i A') }}
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Status:</strong>
+                            <span class="status-{{ strtolower($booking->status) }}">
+                                {{ $booking->status }}
+                            </span>
+                        </p>
 
+                        {{-- ✅ SHOW DOWNLOAD ONLY IF CONFIRMED --}}
+                        @if($booking->status === 'CONFIRMED')
+                            <button class="ok-btn download-btn" data-booking-id="{{ $booking->id }}"
+                                data-student="{{ $booking->student_name }}">
+                                Download PDF
+                            </button>
+                        @elseif($booking->status === 'RESERVED')
+                            <p class="pending-msg">Your booking is pending approval. Please wait for confirmation.</p>
+                        @elseif($booking->status === 'CANCELLED')
+                            <p class="cancelled-msg">Your booking has been cancelled. Please contact the administrator if
+                                needed.</p>
+                        @endif
+                    </div>
                 </div>
 
+
             </div>
 
-            <div class="btn-container">
-                <button class="ok-btn" id="downloadBtn">Download File</button>
-                <button class="ok-btn" onclick="location.href='booking-form'">Back</button>
-            </div>
 
-        </div>
+        </main>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-    <script src="{{ asset('js/student-script.js') }}"></script>
+    <script>
+        // use for making a file into PDF file
+        document.querySelectorAll('.download-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const bookingId = this.dataset.bookingId;
+                const element = document.getElementById('booking-' + bookingId);
+                const opt = {
+                    margin: 0.5,
+                    filename: `booking_confirmation_${bookingId}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+
+                html2pdf().set(opt).from(element).save();
+            });
+        });
+    </script>
 
 </body>
 

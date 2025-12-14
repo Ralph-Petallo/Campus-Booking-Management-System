@@ -49,7 +49,7 @@
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="confirm">
-                                        {{$booking->status == 'confirmed' ? 'CONFIRMED' : 'CONFIRM'}}
+                                        {{$booking->status == 'CONFIRMED' ? 'CONFIRMED' : 'CONFIRM'}}
                                     </button>
                                 </form>
 
@@ -59,7 +59,7 @@
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="cancel">
-                                        {{$booking->status == 'cancelled' ? 'CANCELLED' : 'CANCEL'}}
+                                        {{$booking->status == 'CANCELLED' ? 'CANCELLED' : 'CANCEL'}}
                                     </button>
                                 </form>
                             </td>

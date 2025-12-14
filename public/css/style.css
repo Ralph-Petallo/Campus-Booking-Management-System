@@ -10,7 +10,6 @@
 body {
     background: url('../assets/ESENESYU.png') center/cover no-repeat fixed;
     background-color: transparent;
-    overflow: x;
     object-fit:fill;
 }
 

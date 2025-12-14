@@ -26,7 +26,7 @@ Route::prefix('admin')
 
         // Rooms
         Route::get('/', [FacilityController::class, 'welcomePage'])->name('admin.welcome');
-        Route::get('dashboard', [FacilityController::class, 'index'])->name('dashboard');
+        Route::get('dashboard', [FacilityController::class, 'dashBoard'])->name('dashboard');
         Route::get('lrc', [FacilityController::class, 'lrc'])->name('lrc');
         Route::get('acadhall', [FacilityController::class, 'acadhall'])->name('acadhall');
         Route::get('innovative', [FacilityController::class, 'innovative'])->name('innovative');
@@ -35,7 +35,7 @@ Route::prefix('admin')
         Route::get('discussion', [FacilityController::class, 'discussion'])->name('discussion');
 
         // Booking pages
-        Route::get('booking-history', [StudentController::class, 'bookingHistory'])->name('bookinghistory');
+        Route::get('booking-history', [FacilityController::class, 'bookingHistory'])->name('bookinghistory');
         Route::get('bookings', [FacilityController::class, 'bookings'])->name('bookings');
         Route::put(
             'bookings/{id}/confirm',
@@ -119,6 +119,13 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::get('bookings/history', [StudentController::class, 'history'])
         ->name('student.booking-history');
 
-    Route::get('/booking-confirmation', [BookingController::class, 'bookingSlip'])
+    //booking confirmation page
+    Route::get('/booking-confirmation/{id}', [BookingController::class, 'bookingSlip'])
+        ->name('student.booking-confirmation');
+    //cancelled page
+    Route::get('/booking-cancellation/{id}', [BookingController::class, 'bookingSlip'])
+        ->name('student.booking-cancel');
+    //pending page
+    Route::get('/booking-confirmation/{id}', [BookingController::class, 'bookingSlip'])
         ->name('student.booking-confirmation');
 });
