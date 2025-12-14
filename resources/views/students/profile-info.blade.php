@@ -14,17 +14,7 @@
   <div class="container">
 
     <!-- Header -->
-    <header class="topbar">
-      <nav class="nav">
-        <ul class="nav-list">
-          <li><a href="homepage.html">Home</a></li>
-          <li><a href="bookings.html">Bookings</a></li>
-          <li><a href="notifications.html">Notifications</a></li>
-          <li><a href="profile.html">Profile</a></li>
-        </ul>
-      </nav>
-    </header>
-
+    @include('nav-bar-student')
     <!-- Logo -->
     <div class="logo-overlay">
       <img src="images/snsu-logo.png" alt="SNSU Logo" />
@@ -62,13 +52,6 @@
     </main>
 
     <script>
-      window.routes = {
-        welcome: "{{ route('students.homepage') }}",
-        studentNotifications: "{{ route('students.notifications') }}",
-        bookings: "{{ route('students.booking-history') }}",
-        profile: "{{ route('students.profile') }}"
-      };
-    </script>
 
     <script src="student-script.js"></script>
 </body>

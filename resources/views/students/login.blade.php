@@ -14,7 +14,7 @@
 
         <div class="login-card">
 
-            <form action="{{ route('students.login.process') }}" method="POST">
+            <form action="{{ route('login.process') }}" method="POST">
                 @csrf
 
                 <input type="email" name="email" placeholder="Email" required />
@@ -34,16 +34,6 @@
 
     </div>
 
-    <script>
-        window.routes = {
-            welcome: "{{ route('students.welcome') }}",
-            studentNotifications: "{{ route('students.notifications') }}",
-            bookings: "{{ route('students.booking-history') }}",
-            profile: "{{ route('students.profile') }}"
-        };
-    </script>
-
-    <script src="{{ asset('js/student-script.js') }}"></script>
 </body>
 
 </html>

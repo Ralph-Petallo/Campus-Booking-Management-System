@@ -14,11 +14,12 @@ class BookingController extends Controller
         return view('students.booking-form', compact('facility'));
     }
 
-    public function store(Request $request, $facilityId)
+    public function store(Request $request)
     {
         $request->validate([
             'student_id' => 'required',
-            'student_name' => 'required',
+            'student_name' => 'required|string|max:255',
+            'facility_name' => 'required',
             'date' => 'required|date',
             'time_in' => 'required',
             'time_out' => 'required',
@@ -27,7 +28,7 @@ class BookingController extends Controller
         Booking::create([
             'student_id' => $request->student_id,
             'student_name' => $request->student_name,
-            'facility_id' => $facilityId,
+            'facility' => $request->facility_name,
             'date' => $request->date,
             'time_in' => $request->time_in,
             'time_out' => $request->time_out,
@@ -35,6 +36,13 @@ class BookingController extends Controller
 
         return redirect()->route('students.booking-confirmation');
     }
+
+    public function bookingSlip()
+    {
+        $bookings = Booking::all();
+        return view('students.booking-confirmation', compact('bookings'));
+    }
+
 
     public function storeBook(Request $request)
     {

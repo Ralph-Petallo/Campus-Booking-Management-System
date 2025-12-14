@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const loginBtn = document.querySelector('.btn-login');
     const registerBtn = document.querySelector('.register-btn');
     const manageBtn = document.querySelector('.manage-btn');
@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     confirmBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const confirmed = confirm("Are you sure you want to confirm this booking?");
-            
+
             if (confirmed) {
                 btn.textContent = "Confirmed";
             } else {
-                btn.textContent = "Cancelled"; 
+                btn.textContent = "Cancelled";
             }
 
             const row = btn.closest('tr');
@@ -41,34 +41,34 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     cancelBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const confirmed = confirm("Are you sure you want to cancel this booking?");
-            
+
             if (confirmed) {
                 btn.textContent = "Cancelled";
             } else {
-                btn.textContent = "CONFIRM"; 
+                btn.textContent = "CONFIRM";
             }
 
             const row = btn.closest('tr');
             disableRowButtons(row);
         });
     });
-    
+
     if (loginBtn) {
-      loginBtn.addEventListener('click', function() {
-        window.location.href = routes.welcome;
-      });
+        loginBtn.addEventListener('click', function () {
+            window.location.href = routes.welcome;
+        });
     }
 
     if (manageBtn) {
-        manageBtn.addEventListener('click', function() {
-          window.location.href = 'dashboard.html';
+        manageBtn.addEventListener('click', function () {
+            window.location.href = 'dashboard.html';
         });
     }
 
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', function(event) {
+        logoutBtn.addEventListener('click', function (event) {
             event.preventDefault();
             const confirmLogout = confirm("Are you sure you want to log out?");
             if (confirmLogout) {
@@ -76,20 +76,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     if (availableBtn) {
-    availableBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        const confirmUpdate = confirm("Are you sure you want update the status of this facility?");
-        if (confirmUpdate) {
-            alert("Facility status has been successfully updated!");
-            window.location.href = routes.dashboard;
+        availableBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            const confirmUpdate = confirm("Are you sure you want update the status of this facility?");
+            if (confirmUpdate) {
+                alert("Facility status has been successfully updated!");
+                window.location.href = routes.dashboard;
             }
         });
     }
 
     if (unavailableBtn) {
-        unavailableBtn.addEventListener('click', function(event) {
+        unavailableBtn.addEventListener('click', function (event) {
             event.preventDefault();
             const confirmUpdate = confirm("Are you sure you want update the status of this facility?");
             if (confirmUpdate) {
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (maintenanceBtn) {
-        maintenanceBtn.addEventListener('click', function(event) {
+        maintenanceBtn.addEventListener('click', function (event) {
             event.preventDefault();
             const confirmUpdate = confirm("Are you sure you want update the status of this facility?");
             if (confirmUpdate) {
@@ -110,13 +110,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     if (registerBtn) {
-      registerBtn.addEventListener('click', function() {
-        window.location.href = 'login.html';
-      });
+        registerBtn.addEventListener('click', function () {
+            window.location.href = 'login.html';
+        });
     }
 
     openProfilePopup.addEventListener("click", () => {
-    profileOverlay.style.display = "flex";
+        profileOverlay.style.display = "flex";
     });
 
     // CLOSE POPUP
@@ -146,8 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
         profileOverlay.style.display = "none";
     });
 
-    document.getElementById('closePersonal').addEventListener('click', () => personalOverlay.style.display='none');
-    document.getElementById('closeAccount').addEventListener('click', () => accountOverlay.style.display='none');
+    document.getElementById('closePersonal').addEventListener('click', () => personalOverlay.style.display = 'none');
+    document.getElementById('closeAccount').addEventListener('click', () => accountOverlay.style.display = 'none');
 
     // Open overlays
     personalBtn.addEventListener('click', () => {
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Save Personal Info
     document.getElementById('savePersonal').addEventListener('click', () => {
         const name = document.getElementById('personalName').value.trim();
-        if(name) alert('Name changed to: ' + name);
+        if (name) alert('Name changed to: ' + name);
         personalOverlay.style.display = 'none';
     });
 
@@ -172,8 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const oldPass = document.getElementById('oldPassword').value;
         const newPass = document.getElementById('newPassword').value;
         const confirmPass = document.getElementById('confirmPassword').value;
-        if(!oldPass || !newPass || !confirmPass){ alert('Fill all fields'); return; }
-        if(newPass !== confirmPass){ alert('Passwords do not match'); return; }
+        if (!oldPass || !newPass || !confirmPass) { alert('Fill all fields'); return; }
+        if (newPass !== confirmPass) { alert('Passwords do not match'); return; }
         alert('Password changed successfully!');
         accountOverlay.style.display = 'none';
     });
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
     bookingBtn.addEventListener('click', () => {
         window.location.href = '/bookinghistory'; // your booking history route
     });
-    
+
     logoutBtn.addEventListener('click', () => {
         window.location.href = '/login'; // your login route
     });

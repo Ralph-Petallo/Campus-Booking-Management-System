@@ -10,17 +10,7 @@
 <body>
     <div class="overlay"></div>
     <!-- TOP GREEN BAR -->
-    <header class="topbar">
-        <nav class="nav">
-            <ul class="nav-list">
-                <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                <li><a href="{{ route('admin.facilities') }}">Facilities</a></li>
-                <li><a href="{{ route('admin.booking') }}">Bookings</a></li>
-                <li><a href="{{ route('admin.notifications') }}">Notifications</a></li>
-                <li><a href="{{ route('admin.profile') }}">Profile</a></li>
-            </ul>
-        </nav>
-    </header>
+    @include('admin.nav-bar')
 
     <!-- LOGO OVERLAY -->
     <div class="logo-overlay">
@@ -51,7 +41,6 @@
                         <td>9:00 A.M</td>
                         <td>12:00 NN</td>
                         <td>
-
                             <button class="confirm">CONFIRM</button>
                             <button class="cancel">CANCEL</button>
                         </td>

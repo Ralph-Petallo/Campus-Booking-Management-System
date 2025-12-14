@@ -1066,10 +1066,11 @@ body {
 }
 
 .welcome-body .sub-text {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: bolder;
     letter-spacing: 1px;
     margin-top: 10px;
-    color: #000;
+    color: darkgreen;
 }
 
 .welcome-body .manage-btn {

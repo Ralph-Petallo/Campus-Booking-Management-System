@@ -7,7 +7,7 @@ const previewImg = document.getElementById('previewImg');
 // Open add form
 addBtn.addEventListener('click', () => {
     document.getElementById("modalTitle").textContent = "Add Facility";
-    form.action = "/admin/facilities";
+    form.action = "facilities";
     form.reset();
     previewImg.src = "";
     overlay.style.display = 'flex';

@@ -1,171 +1,130 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use App\Http\Controllers\StudentsHomeController;
-use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StudentLoginController;
+use App\Http\Controllers\StudentsHomeController;
 use App\Http\Controllers\FacilityManagerController;
 use App\Http\Controllers\BookingController;
 
-// ===================== DYNAMIC PAGES =====================
 
-// Dashboard (needs $facilities)
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+//Admin side
 
-// Facilities list & store
-Route::get('/admin/facilities', [FacilityController::class, 'index'])->name('admin.facilities');
-Route::post('/admin/facilities', [FacilityController::class, 'store'])->name('admin.facilities.store');
-Route::post('/admin/facilities/update/{id}', [FacilityController::class, 'update'])->name('admin.facilities.update');
-Route::delete('/admin/facilities/delete/{id}', [FacilityController::class, 'destroy'])->name('admin.facilities.delete');
-
-// ===================== STATIC PAGES =====================
-
-// Home / Welcome
-Route::get('/admin/welcome', function () {
-    return view('admin.welcome');
-})->name('admin.welcome');
 
 // Authentication
-Route::get('/admin/login', function () {
-    return view('admin.login');
-})->name('admin.login');
+Route::get('/admin/login', [FacilityController::class, 'loginPage'])
+    ->name('admin.login');
 
-Route::post('/admin/login/submit', function () {
-    return redirect()->route('admin.welcome');
-})->name('admin.login.submit');
+Route::post('/admin/login/request', [FacilityController::class, 'loginRequest'])
+    ->name('admin.login.submit');
 
-Route::get('/admin/register', function () {
-    return view('admin.register');
-})->name('admin.register');
+Route::get('/admin/register', [FacilityController::class, 'registerPage'])
+    ->name('admin.register');
 
-Route::post('/admin/register/submit', function (Request $request) {
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required|email',
-        'password' => 'required|confirmed|min:6',
-    ]);
-    return redirect()->route('admin.login')->with('success', 'Registration successful! Please log in.');
-})->name('admin.register.submit');
+Route::post('/admin/register/submit', [FacilityController::class, 'registerRequest'])
+    ->name('admin.register.submit');
 
 // Rooms / individual facility pages
-Route::get('/admin/lrc', function () {
-    return view('admin.lrc');
-})->name('admin.lrc');
 
-Route::get('/admin/acadhall', function () {
-    return view('admin.acadhall');
-})->name('admin.acadhall');
+Route::prefix('admin')
+    ->middleware('auth:admin') // fixed middleware syntax
+    ->group(function () {
 
-Route::get('/admin/innovative', function () {
-    return view('admin.innovative');
-})->name('admin.innovative');
+        // Rooms
+        Route::get('/', [FacilityController::class, 'welcomePage'])->name('admin-welcome');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('lrc', [FacilityController::class, 'lrc'])->name('lrc');
+        Route::get('acadhall', [FacilityController::class, 'acadhall'])->name('acadhall');
+        Route::get('innovative', [FacilityController::class, 'innovative'])->name('innovative');
+        Route::get('conference', [FacilityController::class, 'conference'])->name('conference');
+        Route::get('gym', [FacilityController::class, 'gym'])->name('gym');
+        Route::get('discussion', [FacilityController::class, 'discussion'])->name('discussion');
 
-Route::get('/admin/conference', function () {
-    return view('admin.conference');
-})->name('admin.conference');
+        // Booking pages
+        Route::get('booking-history', [FacilityController::class, 'bookingHistory'])->name('bookinghistory');
+        Route::get('booking', [FacilityController::class, 'booking'])->name('booking');
+        Route::get('bookings', [FacilityController::class, 'bookings'])->name('bookings');
 
-Route::get('/admin/gym', function () {
-    return view('admin.gym');
-})->name('admin.gym');
+        // Facilities
+        Route::get('facilities/academic-hall', [FacilityController::class, 'academicHall'])
+            ->name('facilities.academic_hall');
 
-Route::get('/admin/discussion', function () {
-    return view('admin.discussion');
-})->name('admin.discussion');
+        // Notifications & profile
+        Route::get('notifications', [FacilityController::class, 'notifications'])->name('notifications');
+        Route::get('profile', [FacilityController::class, 'profile'])->name('profile');
 
-Route::get('/admin/bookinghistory', function () {
-    return view('admin.bookinghistory');
-})->name('admin.bookinghistory');
-
-Route::get('/admin/booking', function () {
-    return view('admin.booking');
-})->name('admin.booking');
-
-Route::get('/admin/facilities/academic-hall', function () {
-    return view('admin.facilities.academic_hall');
-})->name('admin.facilities.academic_hall');
-
-Route::get('/admin/bookings', function () {
-    return view('admin.bookings');
-})->name('admin.bookings');
-
-Route::get('/admin/notifications', function () {
-    return view('admin.notifications');
-})->name('admin.notifications');
-
-Route::get('/admin/profile', function () {
-    return view('admin.profile');
-})->name('admin.profile');
-
-Route::get('/admin/facility/{id}', [FacilityManagerController::class, 'facilityView'])
-    ->name('admin.facility.view');
+        // Facility manager (dynamic)
+        Route::get('facility/{id}', [FacilityManagerController::class, 'facilityView'])
+            ->name('facility.view');
 
 
+        //REQUEST 
+    
+        // Facilities list & store
+        Route::get('facilities', [FacilityController::class, 'index'])->name('facilities');
+        Route::post('facilities', [FacilityController::class, 'store'])->name('facilities.store');
+        Route::post('facilities/update/{id}', [FacilityController::class, 'update'])->name('facilities.update');
+        Route::delete('acilities/delete/{id}', [FacilityController::class, 'destroy'])->name('facilities.delete');
+
+    });
 
 
-//===================STUDENTS SIDE============================================================
+//STUDENTS SIDE
+Route::get('/login', function () {
+    return view('students.login');
+})->name('login');
 
-Route::prefix('students')->group(function () {
-    Route::get('/login', function () {
-        return view('students.login');
-    })->name('login');
+Route::prefix('students')->middleware('auth:student')->group(function () {
+    Route::get('/welcome', function () {
+        return view('students.welcome');
+    })->name('student.welcome');
 
     Route::get('/homepage', [StudentsHomeController::class, 'index'])
-        ->name('homepage');
-
-    Route::get('/booking-history', [BookingController::class, 'history'])
-        ->name('booking-history');
+        ->name('student.homepage');
 
     Route::get('/profile', function () {
         return view('students.profile');
-    })->name('profile');
+    })->name('student.profile');
 
     Route::get('/profile-edit', function () {
         return view('students.profile-edit');
-    })->name('profile-edit');
+    })->name('student.profile-edit');
 
     Route::get('/profile-account', function () {
         return view('students.profile-account');
-    })->name('profile-account');
+    })->name('student.profile-account');
 
     Route::get('/profile-info', function () {
         return view('students.profile-info');
-    })->name('profile-info');
-
-    Route::get('/welcome', function () {
-        return view('students.welcome');
-    })->name('welcome');
+    })->name('student.profile_info');
 
     Route::get('/notifications', function () {
         return view('students.notifications');
-    })->name('notifications');
+    })->name('student.notifications');
 
     Route::get('/booking-form', function () {
         return view('students.booking-form');
-    })->name('booking-form');
+    })->name('student.booking-form');
 
-    Route::get('/booking-confirmation', function () {
-        return view('students.booking-confirmation');
-    })->name('booking-confirmation');
+    Route::get('/booking-confirmation', [BookingController::class, 'bookingSlip'])
+        ->name('student.booking-confirmation');
 
     // Facility details route — do NOT nest another prefix
     Route::get('/facility-details/{id}', [FacilityController::class, 'show'])
-        ->name('facility-details');
+        ->name('student.facilit_details');
 
-    Route::get('/booking-form/create/{facility}', [BookingController::class, 'create'])
-        ->name('booking-form.create');
+    Route::get('/booking-form/create/{id}', [BookingController::class, 'create'])
+        ->name('student.booking-form.create');
 
-    Route::post('/booking-form/store/{facility}', [BookingController::class, 'store'])
-        ->name('booking-form.store');
+    Route::post('/booking-form/store/', [BookingController::class, 'store'])
+        ->name('student.booking-form.store');
 
     Route::post('/login-process', [StudentLoginController::class, 'login'])
         ->name('login.process');
 
-    Route::post('/students/booking/storeBook', [BookingController::class, 'storeBook'])
-        ->name('students.booking-form.storeBook');
+    Route::post('/booking/storeBook', [BookingController::class, 'storeBook'])
+        ->name('student.booking-form.storeBook');
 
-    Route::get('/students/bookings/history', [BookingController::class, 'history'])
-        ->name('students.booking-history');
-
+    Route::get('bookings/history', [BookingController::class, 'history'])
+        ->name('student.booking-history');
 });

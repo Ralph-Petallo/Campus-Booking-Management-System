@@ -13,17 +13,7 @@
   <div class="container">
     <!-- Header Section -->
     <!-- TOP GREEN BAR -->
-    <header class="topbar">
-      <nav class="nav">
-        <ul class="nav-list">
-          <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
-          <li><a href="{{ route('admin.facilities') }}">Facilities</a></li>
-          <li><a href="{{ route('admin.booking') }}">Bookings</a></li>
-          <li><a href="{{ route('admin.notifications') }}">Notifications</a></li>
-          <li><a href="{{ route('admin.profile') }}">Profile</a></li>
-        </ul>
-      </nav>
-    </header>
+    @include('admin.nav-bar')
     <!-- LOGO OVERLAY (sits on top of green bar) -->
     <div class="logo-overlay">
       <img src="{{asset('assets/logo.png')}}" alt="SNSU Logo" />
@@ -33,7 +23,7 @@
     <div class="overlay-prof">
       <div class="profile-container">
         <div class="profile-preview">
-          <img id="profilePic" src="assets/hunter-x.jpg" alt="Profile Picture">
+          <img id="profilePic" src="{{asset('assets/hunter-x.jpg') }}" alt="Profile Picture">
         </div>
 
         <button id="openProfilePopup" class="change-profile-btn">
@@ -99,7 +89,7 @@
       <div class="buttons">
         <a href="#" class="btn">Admin</a>
         <button class="btn" id="personalBtn">Personal Information</button>
-        <a href="{{ route('admin.bookinghistory') }}" class="btn">Booking History</a>
+        <a href="{{ route('bookinghistory') }}" class="btn">Booking History</a>
         <button class="btn" id="accountBtn">Account</button>
         <button class="btn-logout">Logout</button>
       </div>

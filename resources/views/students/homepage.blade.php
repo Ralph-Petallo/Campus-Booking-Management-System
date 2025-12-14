@@ -14,16 +14,7 @@
   <div class="overlay"></div>
 
   <!-- HEADER -->
-  <header class="topbar">
-    <nav class="nav">
-      <ul class="nav-list">
-        <li><a href="{{ route('students.homepage') }}">Home</a></li>
-        <li><a href="{{ route('students.booking-history') }}">Bookings</a></li>
-        <li><a href="{{ route('students.notifications') }}">Notifications</a></li>
-        <li><a href="{{ route('students.profile') }}">Profile</a></li>
-      </ul>
-    </nav>
-  </header>
+  @include('nav-bar-student')
 
   <!-- LOGO -->
   <div class="logo-overlay">
@@ -50,15 +41,6 @@
     @endforeach
 
   </section>
-
-  <script>
-    window.routes = {
-      welcome: "{{ route('students.welcome') }}",
-      studentNotifications: "{{ route('students.notifications') }}",
-      bookings: "{{ route('students.booking-history') }}",
-      profile: "{{ route('students.profile') }}"
-    };
-  </script>
 
   <script src="{{ asset('js/student-script.js') }}"></script>
 

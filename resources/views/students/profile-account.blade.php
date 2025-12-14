@@ -16,16 +16,7 @@
   <div class="container">
 
     <!-- Header -->
-    <header class="topbar">
-      <nav class="nav">
-        <ul class="nav-list">
-          <li><a href="{{ route('student.home') }}">Home</a></li>
-          <li><a href="{{ route('student.bookings') }}">Bookings</a></li>
-          <li><a href="{{ route('student.notifications') }}">Notifications</a></li>
-          <li><a href="{{ route('student.profile') }}" class="active">Profile</a></li>
-        </ul>
-      </nav>
-    </header>
+    @include('nav-bar-student')
 
     <!-- Logo -->
     <div class="logo-overlay">
@@ -58,17 +49,6 @@
 
   </div>
 
-  <script>
-    window.routes = {
-      welcome: "{{ route('students.welcome') }}",
-      logout: "{{ route('logout') }}",
-      studentNotifications: "{{ route('student.notifications') }}",
-      profileEdit: "{{ route('student.profile.edit') }}",
-      bookings: "{{ route('student.bookings') }}",
-      profileAccount: "{{ route('student.profile.account') }}",
-      profile: "{{ route('student.profile') }}"
-    };
-  </script>
 
   <script src="{{ asset('js/student-script.js') }}"></script>
 
