@@ -13,7 +13,7 @@
 
   <div class="container">
 
-    @include('nav-bar-student')
+    @include('students.nav-bar-student')
 
     <div class="logo-overlay">
       <img src="{{ asset('images/snsu-logo.png') }}" alt="SNSU Logo" />

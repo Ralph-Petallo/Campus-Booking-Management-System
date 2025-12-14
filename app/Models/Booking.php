@@ -20,4 +20,19 @@ class Booking extends Model
         'time_out',
         'status'
     ];
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function facility()
+    {
+        return $this->belongsTo(Facility::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
 }

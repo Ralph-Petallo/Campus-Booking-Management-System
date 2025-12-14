@@ -16,7 +16,7 @@
   <div class="container">
 
     <!-- Header -->
-    @include('nav-bar-student')
+    @include('students.nav-bar-student')
 
     <!-- Logo -->
     <div class="logo-overlay">
@@ -57,16 +57,6 @@
 
     </main>
   </div>
-
-  <script>
-    window.routes = {
-      login: "{{ route('students.login') }}",
-      profileEdit: "{{ route('students.profile-edit') }}",
-      profileAccount: "{{ route('students.profile-account') }}",
-      profile: "{{ route('students.profile') }}",
-      bookingHistory: "{{ route('students.booking-history') }}"
-    };
-  </script>
 
   <script src="{{ asset('js/student-script.js') }}"></script>
 

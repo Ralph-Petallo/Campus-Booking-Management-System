@@ -21,14 +21,12 @@
                 <input type="password" name="password" placeholder="Password" required />
 
                 <button type="submit" class="btn-login">Login</button>
-
-                <div class="divider">or</div>
-
-                <button type="button" class="btn-google">Sign in with Google</button>
-
-                <a href="#" class="forgot">Forgot Password?</a>
-
             </form>
+            <div class="divider">or</div>
+
+            <button type="button" class="btn-google">Sign in with Google</button>
+
+            <a href="#" class="forgot">Forgot Password?</a>
 
         </div>
 

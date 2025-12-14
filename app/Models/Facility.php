@@ -18,4 +18,9 @@ class Facility extends Model
         'time_open',
         'image'
     ];
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
 }

@@ -13,7 +13,7 @@
   <div class="container">
 
     <!-- Header -->
-    @include('nav-bar-student')
+    @include('students.nav-bar-student')
 
     <!-- Logo -->
     <div class="logo-overlay">
@@ -41,7 +41,7 @@
         </p>
 
         <div>
-          <a href="{{ route('students.booking-form.create', $facility->id) }}">
+          <a href="{{ route('student.booking-form.create', $facility->id) }}">
             <button class="reserve-btn">Reserve</button>
           </a>
         </div>

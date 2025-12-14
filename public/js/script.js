@@ -25,36 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
         row.querySelectorAll('.confirm, .cancel').forEach(button => button.disabled = true);
     }
 
-    confirmBtns.forEach(btn => {
-        btn.addEventListener('click', function () {
-            const confirmed = confirm("Are you sure you want to confirm this booking?");
-
-            if (confirmed) {
-                //CONFIRM BUTTON
-                document.querySelector('#confirmForm').addEventListener('load', function(event){
-                    event.preventDefault();
-
-                    const dataForm = new FormData(this);
-
-                    alert(dataForm);
-
-                });
-
-                btn.textContent = "Confirmed";
-            } else {
-                btn.textContent = "Cancelled";
-            }
-
-            const row = btn.closest('tr');
-            disableRowButtons(row);
-        });
-    });
-
-    if (loginBtn) {
-        loginBtn.addEventListener('click', function () {
-            window.location.href = routes.welcome;
-        });
-    }
 
     if (manageBtn) {
         manageBtn.addEventListener('click', function () {
@@ -153,13 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
     accountBtn.addEventListener('click', () => {
         accountOverlay.style.display = 'flex';
         document.getElementById('oldPassword').focus();
-    });
-
-    // Save Personal Info
-    document.getElementById('savePersonal').addEventListener('click', () => {
-        const name = document.getElementById('personalName').value.trim();
-        if (name) alert('Name changed to: ' + name);
-        personalOverlay.style.display = 'none';
     });
 
     // Save Password

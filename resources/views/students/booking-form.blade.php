@@ -13,7 +13,7 @@
     <div class="overlay"></div>
 
     <!-- Header -->
-    @include('nav-bar-student')
+    @include('students.nav-bar-student')
 
     <!-- Logo -->
     <div class="logo-overlay">
@@ -31,12 +31,12 @@
                 <table class="booking-table">
                     <tr>
                         <td><label>Student ID</label></td>
-                        <td><input type="text" name="student_id" value="{{ session('student_id') }}"></td>
+                        <td><input type="text" name="student_id" value="{{ auth()->guard('student')->user()->student_id }}"></td>
                     </tr>
 
                     <tr>
                         <td><label>Student Name</label></td>
-                        <td><input type="text" name="student_name" value="{{ session('student_name') }}"></td>
+                        <td><input type="text" name="student_name" value="{{ auth()->guard('student')->user()->name }}"></td>
                     </tr>
 
                     <tr>

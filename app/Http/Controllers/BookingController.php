@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Facility;
 use App\Models\Booking;
 
@@ -34,7 +35,7 @@ class BookingController extends Controller
             'time_out' => $request->time_out,
         ]);
 
-        return redirect()->route('students.booking-confirmation');
+        return redirect()->route('student.booking-confirmation');
     }
 
     public function bookingSlip()
@@ -62,7 +63,12 @@ class BookingController extends Controller
 
     public function history()
     {
-        $bookings = Booking::orderBy('created_at', 'desc')->get();
+        $student = Auth::guard('student')->user();
+
+        $bookings = Booking::where('student_id', $student->student_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('students.booking-history', compact('bookings'));
     }
 

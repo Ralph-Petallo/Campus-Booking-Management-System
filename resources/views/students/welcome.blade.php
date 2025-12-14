@@ -21,21 +21,13 @@
       <h1 class="welcome-text">WELCOME TO SNSU<br>CAMPUS SPACE!</h1>
       <p class="sub-text">ACCESS, BOOK, MANAGE</p>
 
-      <a href="{{ route('students.homepage') }}">
+      <a href="{{ route('student.homepage') }}">
         <button class="explore-btn">EXPLORE</button>
       </a>
     </div>
 
   </div>
 
-  <script>
-    window.routes = {
-      welcome: "{{ route('students.welcome') }}",
-      studentNotifications: "{{ route('students.notifications') }}",
-      bookings: "{{ route('students.booking-history') }}",
-      profile: "{{ route('students.profile') }}"
-    };
-  </script>
 
   <script src="{{ asset('js/student-script.js') }}"></script>
 </body>

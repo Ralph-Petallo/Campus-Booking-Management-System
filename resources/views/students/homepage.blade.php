@@ -14,7 +14,7 @@
   <div class="overlay"></div>
 
   <!-- HEADER -->
-  @include('nav-bar-student')
+  @include('students.nav-bar-student')
 
   <!-- LOGO -->
   <div class="logo-overlay">

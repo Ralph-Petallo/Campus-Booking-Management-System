@@ -19,7 +19,7 @@
     <div class="container">
 
         <!-- Header Navigation -->
-        @include('nav-bar-student')
+        @include('students.nav-bar-student')
 
         <!-- Logo -->
         <div class="logo-overlay">

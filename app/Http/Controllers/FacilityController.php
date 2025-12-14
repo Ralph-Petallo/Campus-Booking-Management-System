@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Facility;
 use App\Models\Admin;
 use App\Models\Booking;
+use App\Models\Notification;
 
 class FacilityController extends Controller
 {
@@ -82,7 +83,6 @@ class FacilityController extends Controller
         return back()->with('success', 'Booking cancelled.');
     }
 
-
     // Facilities
     public function academicHall()
     {
@@ -92,9 +92,13 @@ class FacilityController extends Controller
     // Others
     public function notifications()
     {
-        return view('admin.notifications');
-    }
+        // Fetch notifications for admin (or all)
+        $notifications = Notification::with(['student', 'booking'])
+            ->orderBy('created_at', 'desc')
+            ->get();
 
+        return view('admin.notifications', compact('notifications'));
+    }
 
     public function loginRequest(Request $request)
     {
@@ -133,6 +137,12 @@ class FacilityController extends Controller
     {
         $facilities = Facility::all();
         return view('admin.facilities', compact('facilities'));
+    }
+
+    public function facilityView($id)
+    {
+        $facility = Facility::findOrFail($id);
+        return view('admin.facility-view', compact('facility'));
     }
 
     public function store(Request $request)

@@ -5,46 +5,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notifications</title>
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
-<body>
+<body class="notifications-page">
 
+    <!-- Overlay -->
     <div class="overlay"></div>
+
+    <!-- Main Container -->
     <div class="container">
-        <!-- Header Section -->
-        <!-- TOP GREEN BAR -->
+
+        <!-- Header / Top Green Bar -->
         @include('admin.nav-bar')
-        <!-- LOGO OVERLAY (sits on top of green bar) -->
+
+        <!-- Logo Overlay -->
         <div class="logo-overlay">
-            <img src="{{asset('assets/logo.png')}}" alt="SNSU Logo" />
+            <img src="{{ asset('assets/logo.png') }}" alt="SNSU Logo" />
         </div>
 
+        <!-- Notifications -->
         <div class="notifications-container">
 
-            <div class="notification-section">
-                <h2>Today</h2>
+            @php
+                // Group notifications by date: Today vs older
+                $groupedNotifications = $notifications->groupBy(function ($notif) {
+                    if ($notif->created_at->isToday()) {
+                        return 'Today';
+                    } else {
+                        return $notif->created_at->diffForHumans(['parts' => 1, 'short' => true]);
+                    }
+                });
+            @endphp
 
-                <div class="notification-box">
-                    <p><strong>Benny</strong> reserved the Conference Room for <strong>September 35, 2028</strong>.</p>
-                    <a href="#" class="more">Click to see more</a>
+            @foreach($groupedNotifications as $dateLabel => $group)
+                <div class="notification-section">
+                    <h2>{{ $dateLabel }}</h2>
+
+                    @foreach($group as $notif)
+                        <div class="notification-box {{ $notif->is_read ? 'read' : 'unread' }}">
+                            <p>
+                                <strong>{{ $notif->student->name ?? 'Unknown' }}</strong>
+
+                                @switch($notif->action)
+                                    @case('reserved')
+                                        reserved
+                                        @break
+                                    @case('cancelled')
+                                        canceled
+                                        @break
+                                    @case('confirmed')
+                                        confirmed
+                                        @break
+                                    @default
+                                        performed an action
+                                @endswitch
+
+                                @if($notif->booking)
+                                    the <strong>{{ $notif->booking->facility }}</strong>
+                                    for <strong>{{ \Carbon\Carbon::parse($notif->booking->date)->format('F d, Y') }}</strong>
+                                @endif
+                                .
+                            </p>
+                            <a href="" class="more">Click to see more</a>
+                        </div>
+                    @endforeach
+
                 </div>
+            @endforeach
 
-                <div class="notification-box">
-                    <p><strong>Rose</strong> canceled her booking.</p>
-                    <a href="#" class="more">Click to see more</a>
-                </div>
-            </div>
-
-            <div class="notification-section">
-                <h2>1 week ago</h2>
-
-                <div class="notification-box">
-                    <p>AAAAAAAAAAAAAAAAAAAAA...</p>
-                    <a href="#" class="more">Click to see more</a>
-                </div>
-            </div>
         </div>
+        <!-- End Notifications -->
+
+    </div>
+    <!-- End Container -->
 
 </body>
 

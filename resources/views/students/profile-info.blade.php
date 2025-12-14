@@ -14,7 +14,7 @@
   <div class="container">
 
     <!-- Header -->
-    @include('nav-bar-student')
+    @include('students.nav-bar-student')
     <!-- Logo -->
     <div class="logo-overlay">
       <img src="images/snsu-logo.png" alt="SNSU Logo" />
