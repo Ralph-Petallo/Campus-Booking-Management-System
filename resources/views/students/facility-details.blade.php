@@ -30,8 +30,8 @@
       <!-- Facility Details -->
       <div class="facility-details">
         <h2 class="facility-name">{{ $facility->faculty_name }}</h2>
-
         <p><strong>Type:</strong> <span class="facility-type">{{ $facility->type }}</span></p>
+        <p><strong>Administrator:</strong> <span class="facility-administrator">{{ $facility->administrator_name }}</span></p>
         <p><strong>Location:</strong> <span class="facility-location">{{ $facility->location }}</span></p>
         <p><strong>Availability:</strong>
           <span class="availability">{{ $facility->status ?? 'Available' }}</span>

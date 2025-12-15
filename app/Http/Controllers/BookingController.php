@@ -21,7 +21,8 @@ class BookingController extends Controller
     {
         $request->validate([
             'student_id' => 'required|exists:students,student_id',
-            'facility_name' => 'required|exists:facilities,faculty_name',
+            'administrator_name' => 'required|exists:facilities,administrator_name',
+            'facility_name' => 'required|exists:facilities,facility_name',
             'date' => 'required|date',
             'time_in' => 'required',
             'time_out' => 'required',
@@ -29,7 +30,7 @@ class BookingController extends Controller
 
         // Resolve related models
         $student = Student::where('student_id', $request->student_id)->firstOrFail();
-        $facility = Facility::where('faculty_name', $request->facility_name)->firstOrFail();
+        $facility = Facility::where('facility_name', $request->facility_name)->firstOrFail();
 
         // Create booking
         $book = Booking::create([
@@ -41,10 +42,11 @@ class BookingController extends Controller
             'status' => 'PENDING',
         ]);
 
+        // Create booking
         Notification::create([
             'student_id' => $student->id,
             'booking_id' => $book->id,
-            'action' => 'reserved',
+            'action' => 'RESERVED',
             'recipient_id' => $student->id,
             'is_read' => false,
         ]);
@@ -52,14 +54,17 @@ class BookingController extends Controller
         return redirect()->route('student.booking-confirmation', $book->id);
     }
 
-
     public function bookingSlip($id)
     {
+
+        if(!$id){
+            return redirect()->route('dashboard');
+        }
+
         $booking = Booking::where('id', $id)->first();
 
         return view('students.booking-confirmation', compact('booking'));
     }
-
 
 
     public function storeBook(Request $request)

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('admin', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('username')->unique();
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('status')->default(0);

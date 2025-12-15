@@ -31,17 +31,22 @@
                 <table class="booking-table">
                     <tr>
                         <td><label>Student ID</label></td>
-                        <td><input type="text" name="student_id" value="{{ auth()->guard('student')->user()->student_id }}"></td>
+                        <td><input type="text" name="student_id" value="{{ auth()->guard('student')->user()->student_id }}" readonly></td>
                     </tr>
 
                     <tr>
                         <td><label>Student Name</label></td>
                         <td><input type="text" name="student_name" value="{{ auth()->guard('student')->user()->name }}"></td>
                     </tr>
+                    
+                    <tr>
+                        <td><label>Administrator</label></td>
+                        <td><input type="text" name="administrator_name" value="{{ $facility->administrator_name }}" readonly></td>
+                    </tr>
 
                     <tr>
                         <td><label>Facility</label></td>
-                        <td><input type="text" name="facility_name" value="{{ $facility->faculty_name }}" readonly></td>
+                        <td><input type="text" name="facility_name" value="{{ $facility->facility_name }}" readonly></td>
                     </tr>
 
                     <tr>

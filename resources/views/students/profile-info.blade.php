@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal Information — SNSU</title>
-  <link rel="stylesheet" href="css/style-global.css">
-  <link rel="stylesheet" href="student-style.css">
+  <link rel="stylesheet" href="{{asset('css/style-global.css')}}">
+  <link rel="stylesheet" href="{{asset('css/student-style.css')}}">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
     @include('students.nav-bar-student')
     <!-- Logo -->
     <div class="logo-overlay">
-      <img src="images/snsu-logo.png" alt="SNSU Logo" />
+      <img src="{{asset('images/snsu-logo.png')}}" alt="SNSU Logo" />
     </div>
 
     <main class="content-page active">
@@ -25,35 +25,38 @@
 
       <div class="info-group">
         <label>Full Name:</label>
-        <p>Benny Basil</p>
+        <p>{{ $student->name}}</p>
       </div>
 
       <div class="info-group">
         <label>Email:</label>
-        <p>bbasil@ssct.edu.ph</p>
+        <p>{{ $student->email }}</p>
       </div>
 
       <div class="info-group">
         <label>Course:</label>
-        <p>BS in Information Technology</p>
+        <p>{{ $student->course }}</p>
       </div>
 
       <div class="info-group">
-        <label>Year Level:</label>
-        <p>4th Year</p>
+        <label>Year level:</label>
+        <p>{{ $student->year_level }}</p>
       </div>
 
       <div class="info-group">
-        <label>Campus:</label>
-        <p>Main Campus — Surigao City</p>
+        <label>Department:</label>
+        <p>{{ $student->department }}</p>
       </div>
 
-      <button class="back-btn" onclick="window.location.href='profile.html'">← Back</button>
+      <button class="back-btn" onclick="window.location.href='{{ route('student.profile') }}'">
+        ← Back
+      </button>
     </main>
+
 
     <script>
 
-    <script src="student-script.js"></script>
+      <script src="student-script.js"></script>
 </body>
 
 </html>

@@ -10,6 +10,7 @@ use App\Models\Admin;
 use App\Models\Booking;
 use App\Models\Notification;
 
+
 class FacilityController extends Controller
 {
 
@@ -56,7 +57,10 @@ class FacilityController extends Controller
     // Booking pages
     public function bookingHistory()
     {
-        $booking_history = Booking::all();
+        $booking_history = Booking::with(['student'])
+            ->latest()
+            ->get();
+
         return view('admin.bookinghistory', compact('booking_history'));
     }
     public function bookings()
@@ -64,13 +68,26 @@ class FacilityController extends Controller
         $bookings = Booking::with(['student', 'facility'])
             ->latest()
             ->get();
+
         return view('admin.bookings', compact('bookings'));
     }
 
     public function confirm($id)
     {
-        Booking::where('id', $id)->update([
-            'status' => 'confirmed'
+        if(!$id){
+            return redirect()->route('dashboard');
+        }
+        
+        $book = Booking::where('id', $id);
+        $book->update([
+            'status' => 'CONFIRMED'
+        ]);
+
+        Notification::create([
+            'booking_id' => $id,
+            'action' => 'CONFIRMED',
+            'recipient_id' => $id,
+            'is_read' => true,
         ]);
 
         return back()->with('success', 'Booking confirmed.');
@@ -78,8 +95,21 @@ class FacilityController extends Controller
 
     public function cancel($id)
     {
-        Booking::where('id', $id)->update([
-            'status' => 'cancelled'
+        if(!$id){
+            return redirect()->route('dashboard');
+        }
+
+        $book = Booking::where('id', $id);
+
+        $book->update([
+            'status' => 'CANCELLED'
+        ]);
+
+        Notification::create([
+            'booking_id' => $id,
+            'action' => 'CANCELLED',
+            'recipient_id' => $id,
+            'is_read' => true,
         ]);
 
         return back()->with('success', 'Booking cancelled.');
@@ -97,17 +127,31 @@ class FacilityController extends Controller
     {
         // Fetch notifications for admin (or all)
         $notifications = Notification::with('booking.facility')
-            ->where('recipient_id', auth()->id())
+            ->where('recipient_id', auth()->guard('student')->user()->id)
             ->latest()
             ->get();
-
-
 
         return view('admin.notifications', compact('notifications'));
     }
 
+    public function viewBookingSlip($id)
+    {
+
+        if(!$id){
+            return redirect()->route('dashboard');
+        }
+
+        $booking = Booking::where('id', $id)->first();
+
+        return view('admin.notification-about', compact('booking'));
+    }
+
     public function dashBoard()
     {
+        if(!Auth::guard('admin')->check()){
+            return redirect()->route('admin.login');
+        }
+        
         $facilities = Facility::all();
         return view('admin.dashboard', compact('facilities'));
     }
@@ -148,6 +192,10 @@ class FacilityController extends Controller
 
     public function index()
     {
+        if(!Auth::guard('admin')->check()){
+            return redirect()->route('admin.login');
+        }
+        
         $facilities = Facility::all();
         return view('admin.facilities', compact('facilities'));
     }
@@ -155,7 +203,8 @@ class FacilityController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'faculty_name' => 'required',
+            'administrator_name' => 'required',
+            'facility_name' => 'required',
             'type' => 'required',
             'location' => 'required',
             'time_open' => 'required',
@@ -165,7 +214,8 @@ class FacilityController extends Controller
         $fileName = $this->uploadImage($request);
 
         Facility::create([
-            'faculty_name' => $request->faculty_name,
+            'administrator_name' => $request->administrator_name,
+            'facility_name' => $request->facility_name,
             'type' => $request->type,
             'location' => $request->location,
             'time_open' => $request->time_open,
@@ -178,10 +228,15 @@ class FacilityController extends Controller
 
     public function update(Request $request, $id)
     {
+        if(!$id){
+            return redirect()->route('dashboard');
+        }
+        
         $facility = Facility::findOrFail($id);
 
         $request->validate([
-            'faculty_name' => 'required',
+            'administrator_name' => 'required',
+            'facility_name' => 'required',
             'type' => 'required',
             'location' => 'required',
             'time_open' => 'required',
@@ -195,7 +250,8 @@ class FacilityController extends Controller
         }
 
         $facility->update([
-            'faculty_name' => $request->faculty_name,
+            'administrator_name' => $request->administrator_name,
+            'facility_name' => $request->facility_name,
             'type' => $request->type,
             'location' => $request->location,
             'time_open' => $request->time_open,
@@ -203,6 +259,16 @@ class FacilityController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function    facilityView($id)
+    {
+        if(!$id){
+            return redirect()->route('dashboard');
+        }
+
+        $facility = Facility::findOrFail($id);
+        return view('admin.facility-view', compact('facility'));
     }
 
     public function destroy($id)

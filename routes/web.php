@@ -4,7 +4,7 @@ use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AdminProfileController;
-
+use App\Http\Controllers\StudentProfileController;
 //Admin side
 
 Route::get('/admin/login', [FacilityController::class, 'loginPage'])
@@ -89,16 +89,22 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::get('/home-page', [StudentController::class, 'index'])
         ->name('student.homepage');
 
-    Route::get('/profile', [StudentController::class, 'profile'])
+    Route::get('/profile', [StudentProfileController::class, 'profile'])
         ->name('student.profile');
 
-    Route::get('/profile-edit', [StudentController::class, 'profileEdit'])
-        ->name('student.profile-edit');
+    Route::put('/profile-edit', [StudentProfileController::class, 'profileEdit'])
+        ->name('student.profile_edit');
 
-    Route::get('/profile-account', [StudentController::class, 'profileAccount'])
-        ->name('student.profile-account');
+    Route::get('/profile-edit-page', [StudentProfileController::class, 'profileEditPage'])
+        ->name('student.profile_edit_page');
 
-    Route::get('/profile-info', [StudentController::class, 'profileInfo'])
+    Route::get('/profile-change-pass', [StudentProfileController::class, 'profileChangePassPage'])
+        ->name('student.profile_change_pass_page');
+
+    Route::put('/profile-change-pass/{id}', [StudentProfileController::class, 'changePass'])
+        ->name('student.profile_change_pass');
+
+    Route::get('/profile-info', [StudentProfileController::class, 'profileInfo'])
         ->name('student.profile_info');
 
     Route::get('/notifications', [StudentController::class, 'notification'])
@@ -120,12 +126,6 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
         ->name('student.booking-history');
 
     //booking confirmation page
-    Route::get('/booking-confirmation/{id}', [BookingController::class, 'bookingSlip'])
-        ->name('student.booking-confirmation');
-    //cancelled page
-    Route::get('/booking-cancellation/{id}', [BookingController::class, 'bookingSlip'])
-        ->name('student.booking-cancel');
-    //pending page
     Route::get('/booking-confirmation/{id}', [BookingController::class, 'bookingSlip'])
         ->name('student.booking-confirmation');
 });

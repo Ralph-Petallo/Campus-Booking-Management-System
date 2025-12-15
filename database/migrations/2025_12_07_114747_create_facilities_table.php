@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('facilities', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
+            $table->string('administrator_name');
             $table->string('facility_name');
             $table->string('type');
             $table->string('location');
@@ -20,6 +21,8 @@ return new class extends Migration {
             $table->string('image')->nullable();
             $table->timestamps();
         });
+
+        
     }
 
     /**

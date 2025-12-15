@@ -30,9 +30,11 @@
         <table>
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Student ID</th>
                     <th>Student Name</th>
                     <th>Facility</th>
+                    <th>Administrator</th>
                     <th>Date</th>
                     <th>Time In</th>
                     <th>Time Out</th>
@@ -43,14 +45,16 @@
             <tbody>
                 @if($bookings->isEmpty())
                     <tr>
-                        <td colspan="7" style="text-align:center;">No bookings yet</td>
+                        <td colspan="9" style="text-align:center;">No bookings yet</td>
                     </tr>
                 @else
-                    @foreach ($bookings as $booking)
+                    @foreach ($bookings as $index => $booking)
                         <tr>
+                            <td>{{$index + 1}}</td>
                             <td>{{ $booking->student->student_id }}</td>
                             <td>{{ $booking->student->name }}</td>
-                            <td>{{ $booking->facility->faculty_name }}</td>
+                            <td>{{ $booking->facility->facility_name }}</td>
+                            <td>{{ $booking->facility->administrator_name }}</td>
                             <td>{{ $booking->date }}</td>
                             <td>{{ $booking->time_in }}</td>
                             <td>{{ $booking->time_out }}</td>

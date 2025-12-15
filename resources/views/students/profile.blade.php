@@ -37,20 +37,15 @@
           <button class="btn-small" id="changePhotoBtn">Change Photo</button>
         </div>
 
-        <!-- User Info -->
-        <h2 id="userName">{{ $user->name ?? 'Benny Basil' }}</h2>
-        <p id="userEmail">{{ $user->email ?? 'bbasil@ssct.edu.ph' }}</p>
-        <p id="userCourse">{{ $user->course ?? 'BS in Information Technology' }}</p>
-
         <!-- Menu Buttons -->
         <div class="menu-buttons">
-          <button class="menu-btn" id="editProfileBtn">Edit Profile</button>
-          <button class="menu-btn" id="bookingHistoryBtn">Booking History</button>
-          <button class="menu-btn" id="accountBtn">Account</button>
+          <div class="menu-btn"><a href="{{ route('student.profile_edit_page') }}">Edit Profile</a></div>
+          <div class="menu-btn"><a href="{{ route('student.profile_info') }}">Personal Info</a></div>
+          <div class="menu-btn"> <a href="{{ route('student.booking-history') }}">Booking History</a></div>
+          <div class="menu-btn"><a href="{{ route('student.profile_change_pass_page') }}">Account</a></div>
 
-          <button id="logoutBtn" class="logout-btn">Logout</button>
+          <div class="menu-btn"><a href="{{ route('student.profile_edit') }}">Logout</a></div>
 
-          </form>
         </div>
 
       </aside>

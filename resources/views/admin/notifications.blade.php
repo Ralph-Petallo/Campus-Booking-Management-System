@@ -69,7 +69,7 @@
                                 </p>
 
                                 @if($notif->booking)
-                                    <a href="{{ route('student.booking-confirmation', $notif->booking->id) }}"
+                                    <a href="{{ route('admin.booking-confirmation', $notif->booking->id) }}"
                                        class="more">
                                         Click to see more
                                     </a>

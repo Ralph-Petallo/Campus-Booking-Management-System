@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facilities</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+
 <body class="facilities-crud">
     <div class="overlay"></div>
     <div class="container">
@@ -29,19 +31,18 @@
             <section class="facilities-grid" id="facilitiesGrid">
 
                 @foreach($facilities as $facility)
-                    <div class="facilities-card"
-                        data-id="{{ $facility->id }}"
-                        data-name="{{ $facility->faculty_name }}"
-                        data-type="{{ $facility->type }}"
-                        data-location="{{ $facility->location }}"
-                        data-time="{{ $facility->time_open }}"
-                        data-image="{{ $facility->image }}"
-                    >
-                        <h3>{{ $facility->faculty_name }}</h3>
+                    <div class="facilities-card" data-id="{{ $facility->id }}"
+                        data-admin="{{ $facility->administrator_name }}" data-name="{{ $facility->facility_name }}"
+                        data-type="{{ $facility->type }}" data-location="{{ $facility->location }}"
+                        data-time="{{ $facility->time_open }}" data-image="{{ $facility->image }}">
+
+                        <h3>{{ $facility->facility_name }}</h3>
                         <p>Type: {{ $facility->type }}</p>
+                        <p>Administrator: {{ $facility->administrator_name }}</p>
                         <p>Location: {{ $facility->location }}</p>
                         <p>Time Limit: {{ $facility->time_open }}</p>
-                        <img src="{{ asset('uploads/facilities/' . $facility->image) }}" alt="{{ $facility->faculty_name }}">
+                        <img src="{{ asset('uploads/facilities/' . $facility->image) }}"
+                            alt="{{ $facility->facility_name }}">
 
                         <div class="edit-container">
                             <button class="edit-btn">EDIT</button>
@@ -50,7 +51,8 @@
                         <form action="{{ route('facilities.delete', $facility->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <div class="delete-container"><button type="submit" class="delete-btn" onclick="return confirm('Delete this facility?')">DELETE</button></div>
+                            <div class="delete-container"><button type="submit" class="delete-btn"
+                                    onclick="return confirm('Delete this facility?')">DELETE</button></div>
                         </form>
                     </div>
                 @endforeach
@@ -73,7 +75,8 @@
                     @csrf
                     <input type="hidden" id="facility_id">
 
-                    <input type="text" name="faculty_name" placeholder="Faculty Name" required>
+                    <input type="text" name="administrator_name" placeholder="Administrator Name" required>
+                    <input type="text" name="facility_name" placeholder="Facility Name" required>
                     <input type="text" name="type" placeholder="Type" required>
                     <input type="text" name="location" placeholder="Location" required>
                     <input type="text" name="time_open" placeholder="Time Limit" required>
@@ -93,4 +96,5 @@
 
     <script src="{{ asset('js/facilities-overlay.js') }}"></script>
 </body>
+
 </html>

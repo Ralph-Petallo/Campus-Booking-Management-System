@@ -25,8 +25,8 @@ document.querySelectorAll('.edit-btn').forEach(btn => {
 
         document.getElementById("modalTitle").textContent = "Edit Facility";
         form.action = "/admin/facilities/update/" + card.dataset.id;
-
-        form.querySelector("[name='faculty_name']").value = card.dataset.name;
+        form.querySelector("[name='administrator_name']").value = card.dataset.admin;
+        form.querySelector("[name='facility_name']").value = card.dataset.name;
         form.querySelector("[name='type']").value = card.dataset.type;
         form.querySelector("[name='location']").value = card.dataset.location;
         form.querySelector("[name='time_open']").value = card.dataset.time;

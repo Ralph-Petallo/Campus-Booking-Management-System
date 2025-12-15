@@ -32,8 +32,8 @@
 
     @foreach($facilities as $facility)
       <div class="facility-card">
-        <img src="{{ asset('uploads/facilities/' . $facility->image) }}" alt="{{ $facility->faculty_name }}">
-        <h2>{{ $facility->faculty_name }}</h2>
+        <img src="{{ asset('uploads/facilities/' . $facility->image) }}" alt="{{ $facility->facility_name }}">
+        <h2>{{ $facility->facility_name }}</h2>
         <a href="{{ route('student.facility-details', $facility->id) }}">
           <button>DISCOVER</button>
         </a>

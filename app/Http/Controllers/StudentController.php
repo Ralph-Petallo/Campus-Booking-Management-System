@@ -23,11 +23,6 @@ class StudentController extends Controller
         return view('students.welcome');
     }
 
-    public function profile()
-    {
-        return view('students.profile');
-    }
-
     public function profileEdit()
     {
         return view('students.profile-edit');
@@ -75,14 +70,16 @@ class StudentController extends Controller
         return view('students.homepage', compact('facilities'));
     }
 
+
     // =====================
     // NOTIFICATIONS
     // =====================
     public function notification()
     {
-        $student = Auth::guard('student')->user();
-
-        $notifications = Notification::where('id', $student->id)
+        $recipient = auth()->guard('student')->user()->id;
+        $notifications = Notification::with(['booking'])
+            ->where('recipient_id', $recipient)
+            ->latest()
             ->get();
 
         return view('students.notifications', compact('notifications'));

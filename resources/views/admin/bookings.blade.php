@@ -23,9 +23,11 @@
             <table class="booking-table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Student ID</th>
                         <th>Student Name</th>
                         <th>Reserved Facility</th>
+                        <th>Administrator</th>
                         <th>Date</th>
                         <th>Time In</th>
                         <th>Time Out</th>
@@ -34,11 +36,13 @@
                 </thead>
 
                 <tbody>
-                    @forelse ($bookings as $booking)
+                    @forelse ($bookings as $index => $booking)
                         <tr>
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ $booking->student->student_id }}</td>
                             <td>{{ $booking->student->name }}</td>
-                            <td>{{ $booking->facility->faculty_name }}</td>
+                            <td>{{ $booking->facility->facility_name }}</td>
+                            <td>{{ $booking->facility->administrator_name }}</td>
                             <td>{{ \Carbon\Carbon::parse($booking->date)->format('m-d-Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($booking->time_in)->format('h:i A') }}</td>
                             <td>{{ \Carbon\Carbon::parse($booking->time_out)->format('h:i A') }}</td>
@@ -67,7 +71,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" style="text-align:center;">
+                            <td colspan="9" style="text-align:center;">
                                 No bookings found.
                             </td>
                         </tr>

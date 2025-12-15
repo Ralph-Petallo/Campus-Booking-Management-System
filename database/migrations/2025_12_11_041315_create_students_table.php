@@ -10,16 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->id();
-            $table->string('student_id')->unique(); // school ID
-            $table->string('name');
-            $table->string('course');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->timestamps();
-        });
+        
     }
 
     /**
@@ -27,6 +18,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        
     }
 };

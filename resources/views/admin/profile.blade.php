@@ -37,7 +37,7 @@
           <h3>Change Profile Picture</h3>
 
           <div class="preview-box">
-            <img id="previewImage" src="assets/default-profile.png" alt="Preview">
+            <img id="previewImage" src="{{ asset('assets/hunter-x.jpg') }}" alt="Preview">
           </div>
 
           <input type="file" id="profileInput" accept="image/*" style="display:none;">
@@ -45,10 +45,9 @@
           <button id="chooseFileBtn" class="choose-btn">Choose File</button>
 
           <div class="popup-actions">
-            <button id="saveProfileBtn" class="save-btn">Save</button>
+            <button type="submit" id="saveProfileBtn" class="save-btn">Save</button>
             <button id="closeProfilePopup" class="cancel-btn">Cancel</button>
           </div>
-
         </div>
       </div>
 
@@ -56,15 +55,17 @@
       <div class="overlay" id="personalOverlay">
         <div class="popup">
           <h3>Personal Information</h3>
-          <form action="">
+          <form  method="POST">
+            @csrf
+            @method('PUT')
             <label>Name:</label>
             <input type="text" id="personalName" value="{{$admin->username}}">
             <label>Email:</label>
             <input type="email" id="personalEmail" value="{{ $admin->email }}">
             <label>Faculty ID:</label>
-            <input type="text" id="facultyId" value="{{$admin->id}}">
+            <input type="text" id="facultyId" value="{{$admin->id}}" readonly>
             <label>Role:</label>
-            <input type="text" id="facultyRole" value="{{$admin->role}}" readonly disabled>
+            <input type="text" id="facultyRole" value="{{$admin->role}}" readonly>
             <div class="popup-actions">
               <button type="submit" id="savePersonal" class="save-btn">Save</button>
               <button id="closePersonal" class="cancel-btn">Cancel</button>
@@ -77,23 +78,28 @@
       <div class="overlay" id="accountOverlay">
         <div class="popup">
           <h3>Change Password</h3>
-          <label>Old Password:</label>
-          <input type="password" id="oldPassword">
-          <label>New Password:</label>
-          <input type="password" id="newPassword">
-          <label>Confirm Password:</label>
-          <input type="password" id="confirmPassword">
-          <div class="popup-actions">
-            <button id="savePassword" class="save-btn">Save</button>
-            <button id="closeAccount" class="cancel-btn">Cancel</button>
-          </div>
+          <form action="update-password" method="POST">
+            @csrf
+            @method('PUT')
+            <label>Old Password:</label>
+            <input type="password" id="oldPassword">
+            <label>New Password:</label>
+            <input type="password" id="newPassword">
+            <label>Confirm Password:</label>
+            <input type="password" id="confirmPassword">
+            <div class="popup-actions">
+              <button id="savePassword" class="save-btn">Save</button>
+              <button id="closeAccount" class="cancel-btn">Cancel</button>
+            </div>
+          </form>
+
         </div>
       </div>
 
       <div class="buttons">
         <button class="btn" id="personalBtn">Personal Information</button>
         <a href="{{ route('bookinghistory') }}" class="btn">Booking History</a>
-        <button class="btn" id="accountBtn">Account</button>
+        <button class="btn" id="accountBtn">Change Password</button>
         <button class="btn-logout">Logout</button>
       </div>
     </div>

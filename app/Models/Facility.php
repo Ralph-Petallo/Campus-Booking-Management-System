@@ -12,7 +12,8 @@ class Facility extends Model
     public $table = 'facilities';
 
     protected $fillable = [
-        'faculty_name',
+        'administrator_name',
+        'facility_name',
         'type',
         'location',
         'time_open',

@@ -25,13 +25,14 @@
             <table class="history-table">
                 <thead>
                     <tr>
-                        <th colspan="7" class="history-header">Booking History</th>
+                        <th colspan="9" class="history-header">Booking History</th>
                     </tr>
 
                     <tr>
                         <td>Student ID</td>
                         <td>Student Name</td>
                         <td>Reserved Facility</td>
+                        <td>Administrator</td>
                         <td>Date</td>
                         <td>Time In</td>
                         <td>Time Out</td>
@@ -43,8 +44,9 @@
                         @foreach ($booking_history as $booking)
                             <tr>
                                 <td>{{ $booking->student_id }}</td>
-                                <td>{{ $booking->student_name }}</td>
-                                <td>{{ $booking->facility }}</td>
+                                <td>{{ $booking->student->name }}</td>
+                                <td>{{ $booking->facility->facility_name }}</td>
+                                <td>{{ $booking->facility->administrator_name }}</td>
                                 <td>{{ $booking->date }}</td>
                                 <td>{{ $booking->time_in }}</td>
                                 <td>{{ $booking->time_out }}</td>

@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->string('name');
             $table->string('course');
             $table->string('email')->unique();
+            $table->string('year_level');
+            $table->string('department');
             $table->string('password');
             $table->timestamps();
         });
