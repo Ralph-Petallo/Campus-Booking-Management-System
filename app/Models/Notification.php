@@ -9,6 +9,7 @@ class Notification extends Model
         'student_id',
         'booking_id',
         'action',
+        'recipient_id',
         'is_read',
     ];
 

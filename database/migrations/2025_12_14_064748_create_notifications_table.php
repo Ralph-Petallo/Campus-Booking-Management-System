@@ -11,34 +11,36 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
 
             // Who performed the action (optional)
             $table->foreignId('student_id')
-                  ->nullable()
-                  ->constrained('students')
-                  ->onDelete('cascade');
+                ->nullable()
+                ->constrained('students')
+                ->onDelete('cascade');
 
             // Related booking (optional)
             $table->foreignId('booking_id')
-                  ->nullable()
-                  ->constrained('bookings')
-                  ->onDelete('cascade');
+                ->nullable()
+                ->constrained('bookings')
+                ->onDelete('cascade');
 
             // Action text: reserved, cancelled, confirmed
             $table->string('action');
 
             // Recipient (who will see the notification)
             $table->foreignId('recipient_id')
-                  ->nullable()
-                  ->constrained('students')
-                  ->onDelete('cascade');
+                ->nullable()
+                ->constrained('students')
+                ->onDelete('cascade');
 
             // Whether the notification is read
             $table->boolean('is_read')->default(false);
 
             $table->timestamps();
         });
+
     }
 
     /**

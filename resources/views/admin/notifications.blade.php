@@ -27,52 +27,64 @@
         <!-- Notifications -->
         <div class="notifications-container">
 
-            @php
-                // Group notifications by date: Today vs older
-                $groupedNotifications = $notifications->groupBy(function ($notif) {
-                    if ($notif->created_at->isToday()) {
-                        return 'Today';
-                    } else {
-                        return $notif->created_at->diffForHumans(['parts' => 1, 'short' => true]);
-                    }
-                });
-            @endphp
+            @if($notifications->count())
 
-            @foreach($groupedNotifications as $dateLabel => $group)
-                <div class="notification-section">
-                    <h2>{{ $dateLabel }}</h2>
+                @php
+                    $groupedNotifications = $notifications->groupBy(function ($notif) {
+                        return $notif->created_at->isToday()
+                            ? 'Today'
+                            : $notif->created_at->diffForHumans(['parts' => 1, 'short' => true]);
+                    });
+                @endphp
 
-                    @foreach($group as $notif)
-                        <div class="notification-box {{ $notif->is_read ? 'read' : 'unread' }}">
-                            <p>
-                                <strong>{{ $notif->student->name ?? 'Unknown' }}</strong>
+                @foreach($groupedNotifications as $dateLabel => $group)
+                    <div class="notification-section">
+                        <h2>{{ $dateLabel }}</h2>
 
-                                @switch($notif->action)
-                                    @case('reserved')
-                                        reserved
-                                        @break
-                                    @case('cancelled')
-                                        canceled
-                                        @break
-                                    @case('confirmed')
-                                        confirmed
-                                        @break
-                                    @default
-                                        performed an action
-                                @endswitch
+                        @foreach($group as $notif)
+                            <div class="notification-box {{ $notif->is_read ? 'read' : 'unread' }}">
+                                <p>
+                                    <strong>{{ optional($notif->student)->name ?? 'Unknown' }}</strong>
+
+                                    @switch($notif->action)
+                                        @case('reserved')
+                                            reserved
+                                            @break
+                                        @case('cancelled')
+                                            cancelled
+                                            @break
+                                        @case('confirmed')
+                                            confirmed
+                                            @break
+                                        @default
+                                            performed an action
+                                    @endswitch
+
+                                    @if($notif->booking)
+                                        the <strong>{{ $notif->booking->facility->type }}</strong>
+                                        for <strong>{{ \Carbon\Carbon::parse($notif->booking->date)->format('F d, Y') }}</strong>.
+                                    @else
+                                        .
+                                    @endif
+                                </p>
 
                                 @if($notif->booking)
-                                    the <strong>{{ $notif->booking->facility }}</strong>
-                                    for <strong>{{ \Carbon\Carbon::parse($notif->booking->date)->format('F d, Y') }}</strong>
+                                    <a href="{{ route('student.booking-confirmation', $notif->booking->id) }}"
+                                       class="more">
+                                        Click to see more
+                                    </a>
                                 @endif
-                                .
-                            </p>
-                            <a href="" class="more">Click to see more</a>
-                        </div>
-                    @endforeach
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
 
+            @else
+                <!-- EMPTY STATE -->
+                <div class="notification-box empty">
+                    <p>No notifications yet.</p>
                 </div>
-            @endforeach
+            @endif
 
         </div>
         <!-- End Notifications -->

@@ -51,7 +51,7 @@
                     <div class="booking-details" id="booking-{{ $booking->id }}">
                         <p><strong>Student Name:</strong> <span>{{ $booking->student_name }}</span></p>
                         <p><strong>Student ID:</strong> <span>{{ $booking->student_id }}</span></p>
-                        <p><strong>Facility:</strong> <span>{{ $booking->facility }}</span></p>
+                        <p><strong>Facility:</strong> <span>{{ $booking->facility->faculty_name }}</span></p>
                         <p><strong>Date:</strong>
                             <span>{{ \Carbon\Carbon::parse($booking->date)->format('F d, Y') }}</span>
                         </p>

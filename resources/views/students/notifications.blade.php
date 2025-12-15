@@ -37,24 +37,29 @@
       <p class="subtext">Check your booking updates and confirmation slips here.</p>
 
       @forelse($notifications as $notif)
-        <div class="notif-box ">
+        <div class="notif-box">
           <p>
+
             @if($notif->action === 'confirmed')
               <strong class="confirmed">Your booking has been confirmed!</strong>
               Please download your booking confirmation slip and present it to the facility administrator or staff.
-              <a href="{{ route('student.booking-confirmation', $notif->id) }}">View more.</a>
 
             @elseif($notif->action === 'cancelled')
               <strong class="cancelled">Your booking has been cancelled.</strong>
-              If you have questions, please contact the administrator. <a
-                href="{{ route('student.booking-confirmation', $notif->id) }}">View more.</a>
+              If you have questions, please contact the administrator.
 
             @elseif($notif->action === 'reserved')
               <strong class="pending">Your booking is pending approval.</strong>
-              Please wait for the administrator’s confirmation. <a
-                href="{{ route('student.booking-confirmation', $notif->id) }}">View
-                more.</a>
+              Please wait for the administrator’s confirmation.
             @endif
+
+            {{-- LINK ONLY IF BOOKING EXISTS --}}
+            @if($notif->booking)
+              <a href="{{ route('student.booking-confirmation', $notif->booking->id) }}">
+                View more
+              </a>
+            @endif
+
           </p>
         </div>
       @empty
@@ -62,6 +67,7 @@
           <p>No booking notifications yet.</p>
         </div>
       @endforelse
+
     </div>
 
 

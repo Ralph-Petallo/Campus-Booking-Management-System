@@ -78,13 +78,11 @@ class StudentController extends Controller
     // =====================
     // NOTIFICATIONS
     // =====================
-    public function studentNotifications()
+    public function notification()
     {
         $student = Auth::guard('student')->user();
 
-        $notifications = Notification::with('booking')
-            ->where('recipient_id', $student->id)
-            ->latest()
+        $notifications = Notification::where('id', $student->id)
             ->get();
 
         return view('students.notifications', compact('notifications'));
@@ -97,7 +95,8 @@ class StudentController extends Controller
     {
         $student = Auth::guard('student')->user();
 
-        $bookings = Booking::where('student_id', $student->student_id)
+        $bookings = Booking::with('student', 'facility') // eager load relationships
+            ->where('student_id', $student->id)
             ->latest()
             ->get();
 

@@ -61,14 +61,16 @@ class FacilityController extends Controller
     }
     public function bookings()
     {
-        $bookings = Booking::all();
+        $bookings = Booking::with(['student', 'facility'])
+            ->latest()
+            ->get();
         return view('admin.bookings', compact('bookings'));
     }
 
     public function confirm($id)
     {
         Booking::where('id', $id)->update([
-            'status' => 'CONFIRMED'
+            'status' => 'confirmed'
         ]);
 
         return back()->with('success', 'Booking confirmed.');
@@ -77,11 +79,12 @@ class FacilityController extends Controller
     public function cancel($id)
     {
         Booking::where('id', $id)->update([
-            'status' => 'CANCELLED'
+            'status' => 'cancelled'
         ]);
 
         return back()->with('success', 'Booking cancelled.');
     }
+
 
     // Facilities
     public function academicHall()
@@ -93,12 +96,22 @@ class FacilityController extends Controller
     public function notifications()
     {
         // Fetch notifications for admin (or all)
-        $notifications = Notification::with(['student', 'booking'])
-            ->orderBy('created_at', 'desc')
+        $notifications = Notification::with('booking.facility')
+            ->where('recipient_id', auth()->id())
+            ->latest()
             ->get();
+
+
 
         return view('admin.notifications', compact('notifications'));
     }
+
+    public function dashBoard()
+    {
+        $facilities = Facility::all();
+        return view('admin.dashboard', compact('facilities'));
+    }
+
 
     public function loginRequest(Request $request)
     {
@@ -127,7 +140,7 @@ class FacilityController extends Controller
         Admin::create([
             'username' => $credentials['username'],
             'email' => $credentials['email'],
-            'password' => Hash::make($credentials['password']), // Hash the password
+            'password' => Hash::make($credentials['password'])
         ]);
 
         return redirect()->route('admin.login')->with('success', 'Registration successful. Please log in.');
@@ -137,18 +150,6 @@ class FacilityController extends Controller
     {
         $facilities = Facility::all();
         return view('admin.facilities', compact('facilities'));
-    }
-
-    public function dashBoard()
-    {
-        $facilities = Facility::all();
-        return view('admin.dashboard', compact('facilities'));
-    }
-
-    public function facilityView($id)
-    {
-        $facility = Facility::findOrFail($id);
-        return view('admin.facility-view', compact('facility'));
     }
 
     public function store(Request $request)

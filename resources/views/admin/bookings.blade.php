@@ -36,9 +36,9 @@
                 <tbody>
                     @forelse ($bookings as $booking)
                         <tr>
-                            <td>{{ $booking->student_id }}</td>
-                            <td>{{ $booking->student_name }}</td>
-                            <td>{{ $booking->facility }}</td>
+                            <td>{{ $booking->student->student_id }}</td>
+                            <td>{{ $booking->student->name }}</td>
+                            <td>{{ $booking->facility->faculty_name }}</td>
                             <td>{{ \Carbon\Carbon::parse($booking->date)->format('m-d-Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($booking->time_in)->format('h:i A') }}</td>
                             <td>{{ \Carbon\Carbon::parse($booking->time_out)->format('h:i A') }}</td>

@@ -16,7 +16,11 @@ class Student extends Authenticatable
         'name',
         'course',
         'email',
-        'password'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     public function bookings()

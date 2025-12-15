@@ -48,9 +48,9 @@
                 @else
                     @foreach ($bookings as $booking)
                         <tr>
-                            <td>{{ $booking->student_id }}</td>
-                            <td>{{ $booking->student_name }}</td>
-                            <td>{{ $booking->facility }}</td>
+                            <td>{{ $booking->student->student_id }}</td>
+                            <td>{{ $booking->student->name }}</td>
+                            <td>{{ $booking->facility->faculty_name }}</td>
                             <td>{{ $booking->date }}</td>
                             <td>{{ $booking->time_in }}</td>
                             <td>{{ $booking->time_out }}</td>

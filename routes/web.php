@@ -101,7 +101,7 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::get('/profile-info', [StudentController::class, 'profileInfo'])
         ->name('student.profile_info');
 
-    Route::get('/notifications', [StudentController::class, 'studentNotifications'])
+    Route::get('/notifications', [StudentController::class, 'notification'])
         ->name('student.notifications');
 
     Route::get('/booking-form', [StudentController::class, 'bookingForm'])

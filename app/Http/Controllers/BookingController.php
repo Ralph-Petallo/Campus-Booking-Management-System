@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Facility;
+use App\Models\Student;
 use App\Models\Booking;
 
 class BookingController extends Controller
@@ -18,30 +20,43 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'student_id' => 'required',
-            'student_name' => 'required|string|max:255',
-            'facility_name' => 'required|string|amx:255',
+            'student_id' => 'required|exists:students,student_id',
+            'facility_name' => 'required|exists:facilities,faculty_name',
             'date' => 'required|date',
             'time_in' => 'required',
             'time_out' => 'required',
         ]);
 
+        // Resolve related models
+        $student = Student::where('student_id', $request->student_id)->firstOrFail();
+        $facility = Facility::where('faculty_name', $request->facility_name)->firstOrFail();
+
+        // Create booking
         $book = Booking::create([
-            'student_id' => $request->student_id,
-            'student_name' => $request->student_name,
-            'facility' => $request->facility_name,
+            'student_id' => $student->id,
+            'facility_id' => $facility->id,
             'date' => $request->date,
             'time_in' => $request->time_in,
             'time_out' => $request->time_out,
+            'status' => 'PENDING',
         ]);
 
-        return redirect()->route('student.booking-confirmation', ['id'=>$book->id]);
+        Notification::create([
+            'student_id' => $student->id,
+            'booking_id' => $book->id,
+            'action' => 'reserved',
+            'recipient_id' => $student->id,
+            'is_read' => false,
+        ]);
+
+        return redirect()->route('student.booking-confirmation', $book->id);
     }
+
 
     public function bookingSlip($id)
     {
-        $booking = Booking::where('id',$id)->first();
-        
+        $booking = Booking::where('id', $id)->first();
+
         return view('students.booking-confirmation', compact('booking'));
     }
 
@@ -51,8 +66,6 @@ class BookingController extends Controller
     {
         Booking::create([
             'student_id' => $request->student_id,
-            'student_name' => $request->student_name,
-            'facility' => $request->facility,
             'date' => $request->date,
             'time_in' => $request->time_in,
             'time_out' => $request->time_out,

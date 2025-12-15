@@ -13,13 +13,13 @@ class Booking extends Model
 
     protected $fillable = [
         'student_id',
-        'student_name',
-        'facility',
+        'facility_id',
         'date',
         'time_in',
         'time_out',
         'status'
     ];
+
     public function student()
     {
         return $this->belongsTo(Student::class);
@@ -34,5 +34,4 @@ class Booking extends Model
     {
         return $this->hasMany(Notification::class);
     }
-
 }
