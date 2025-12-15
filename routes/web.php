@@ -128,4 +128,6 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     //booking confirmation page
     Route::get('/booking-confirmation/{id}', [BookingController::class, 'bookingSlip'])
         ->name('student.booking-confirmation');
+
+    Route::post('/logout', [StudentController::class, 'studentLogout'])->name('student.logout');
 });

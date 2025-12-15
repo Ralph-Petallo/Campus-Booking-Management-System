@@ -44,7 +44,7 @@
           <div class="menu-btn"> <a href="{{ route('student.booking-history') }}">Booking History</a></div>
           <div class="menu-btn"><a href="{{ route('student.profile_change_pass_page') }}">Account</a></div>
 
-          <div class="menu-btn"><a href="{{ route('student.profile_edit') }}">Logout</a></div>
+          <div class="menu-btn"><a href="{{ route('student.logout') }}">Logout</a></div>
 
         </div>
 

@@ -23,24 +23,19 @@ class StudentController extends Controller
         return view('students.welcome');
     }
 
-    public function profileEdit()
-    {
-        return view('students.profile-edit');
-    }
-
-    public function profileAccount()
-    {
-        return view('students.profile-account');
-    }
-
-    public function profileInfo()
-    {
-        return view('students.profile-info');
-    }
-
     public function bookingForm()
     {
         return view('students.booking-form');
+    }
+
+    public function studentLogout(request $request)
+    {
+        Auth::guard('student')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('student.login');
+
     }
 
     // =====================
@@ -69,7 +64,6 @@ class StudentController extends Controller
         $facilities = Facility::all();
         return view('students.homepage', compact('facilities'));
     }
-
 
     // =====================
     // NOTIFICATIONS
