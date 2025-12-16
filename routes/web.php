@@ -53,18 +53,13 @@ Route::prefix('admin')
 
         // Notifications & profile
         Route::get('notifications', [FacilityController::class, 'notifications'])->name('notifications');
-
-
-
-
+        Route::get('notifications/view-slip/{id}', [FacilityController::class, 'viewBookingSlip'])->name('admin.booking-confirmation');
 
         Route::get('profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
         Route::put('profile-change-pass', [AdminProfileController::class, 'adminChangePass'])->name('admin.profile.change_pass');
         Route::put('profile-info', [AdminProfileController::class, 'adminEditProfile'])->name('admin.profile.update');
         Route::put('profile-picture', [AdminProfileController::class, 'adminChangeProfile'])->name('admin.profile.picture');
         Route::post('logout', [AdminProfileController::class, 'adminLogout'])->name('admin.logout');
-
-
 
         // Facility manager (dynamic)
         Route::get('facility/{id}', [FacilityController::class, 'facilityView'])
@@ -76,8 +71,6 @@ Route::prefix('admin')
         Route::post('facilities/update/{id}', [FacilityController::class, 'update'])->name('facilities.update');
         Route::delete('acilities/delete/{id}', [FacilityController::class, 'destroy'])->name('facilities.delete');
     });
-
-
 
 // =====================
 // STUDENT AUTH

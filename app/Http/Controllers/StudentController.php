@@ -33,7 +33,7 @@ class StudentController extends Controller
         Auth::guard('student')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
+
         return redirect()->route('login');
 
     }
@@ -70,11 +70,16 @@ class StudentController extends Controller
     // =====================
     public function notification()
     {
-        $recipient = auth()->guard('student')->user()->id;
+        
+        $recipient = Auth::guard('student')->user()->id;
+
         $notifications = Notification::with(['booking'])
             ->where('recipient_id', $recipient)
             ->latest()
             ->get();
+            if($notifications->id == null){
+                return redirect()->route('admin.welcome');
+            }
 
         return view('students.notifications', compact('notifications'));
     }
