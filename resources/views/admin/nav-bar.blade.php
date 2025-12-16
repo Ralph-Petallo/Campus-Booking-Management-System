@@ -5,7 +5,7 @@
             <li><a href="{{ route('facilities') }}">Facilities</a></li>
             <li><a href="{{ route('bookings') }}">Bookings</a></li>
             <li><a href="{{ route('notifications') }}">Notifications</a></li>
-            <li><a href="{{ route('profile') }}">Profile</a></li>
+            <li><a href="{{ route('admin.profile') }}">Profile</a></li>
         </ul>
     </nav>
 </header>

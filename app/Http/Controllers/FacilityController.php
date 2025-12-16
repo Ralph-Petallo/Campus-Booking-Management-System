@@ -74,10 +74,10 @@ class FacilityController extends Controller
 
     public function confirm($id)
     {
-        if(!$id){
+        if (!$id) {
             return redirect()->route('dashboard');
         }
-        
+
         $book = Booking::where('id', $id);
         $book->update([
             'status' => 'CONFIRMED'
@@ -95,7 +95,7 @@ class FacilityController extends Controller
 
     public function cancel($id)
     {
-        if(!$id){
+        if (!$id) {
             return redirect()->route('dashboard');
         }
 
@@ -137,7 +137,7 @@ class FacilityController extends Controller
     public function viewBookingSlip($id)
     {
 
-        if(!$id){
+        if (!$id) {
             return redirect()->route('dashboard');
         }
 
@@ -148,10 +148,10 @@ class FacilityController extends Controller
 
     public function dashBoard()
     {
-        if(!Auth::guard('admin')->check()){
+        if (!Auth::guard('admin')->check()) {
             return redirect()->route('admin.login');
         }
-        
+
         $facilities = Facility::all();
         return view('admin.dashboard', compact('facilities'));
     }
@@ -192,10 +192,10 @@ class FacilityController extends Controller
 
     public function index()
     {
-        if(!Auth::guard('admin')->check()){
+        if (!Auth::guard('admin')->check()) {
             return redirect()->route('admin.login');
         }
-        
+
         $facilities = Facility::all();
         return view('admin.facilities', compact('facilities'));
     }
@@ -228,10 +228,10 @@ class FacilityController extends Controller
 
     public function update(Request $request, $id)
     {
-        if(!$id){
+        if (!$id) {
             return redirect()->route('dashboard');
         }
-        
+
         $facility = Facility::findOrFail($id);
 
         $request->validate([
@@ -261,9 +261,9 @@ class FacilityController extends Controller
         return redirect()->back();
     }
 
-    public function    facilityView($id)
+    public function facilityView($id)
     {
-        if(!$id){
+        if (!$id) {
             return redirect()->route('dashboard');
         }
 

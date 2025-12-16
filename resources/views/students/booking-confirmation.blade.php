@@ -24,7 +24,7 @@
         }
 
         .return-btn {
-            border-radius: 5px;
+            border-radius: 5p;
             text-decoration: none;
             font-weight: bold;
             font-size: 14px;
@@ -56,13 +56,11 @@
                 <div class="title-header">
                     <h2>Booking Confirmation Slip </h2>
                     <div class="separator">
-                        <a class="return-btn" href="{{ route('student.notifications') }}">BACK</a>
+                        <a class="return-btn" href="{{ route('dashboard') }}">BACK</a>
                     </div>
                 </div>
 
-
                 <h1>Greetings!</h1>
-
                 <p>
                     Please present this confirmation slip to the facility administrator or staff on the day of your
                     scheduled use.
@@ -100,7 +98,7 @@
                                 data-student="{{ $booking->student_name }}">
                                 Download PDF
                             </button>
-                        @elseif($booking->status === 'PENDING')
+                        @elseif($booking->status === 'RESERVED')
                             <p class="pending-msg">Your booking is pending approval. Please wait for confirmation.</p>
                         @elseif($booking->status === 'CANCELLED')
                             <p class="cancelled-msg">Your booking has been cancelled. Please contact the administrator if

@@ -6,6 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SNSU Portal</title>
   <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+
+  <style>
+    .btn-logout {
+      width: 100%;
+      padding: 10px 15px;
+      background-color: #e74c3c;
+      border: 2px solid black;
+      border-radius: 5px;
+      cursor: pointer
+    }
+  </style>
 </head>
 
 <body class="profile-set">
@@ -23,7 +34,9 @@
     <div class="overlay-prof">
       <div class="profile-container">
         <div class="profile-preview">
-          <img id="profilePic" src="{{asset('assets/hunter-x.jpg') }}" alt="Profile Picture">
+          <img id="previewImage" src="{{ auth()->guard('admin')->user()->profile_picture
+  ? asset(auth()->guard('admin')->user()->profile_picture)
+  : asset('assets/hunter-x.jpg') }}" alt="Preview">
         </div>
 
         <button id="openProfilePopup" class="change-profile-btn">
@@ -36,39 +49,82 @@
 
           <h3>Change Profile Picture</h3>
 
-          <div class="preview-box">
-            <img id="previewImage" src="{{ asset('assets/hunter-x.jpg') }}" alt="Preview">
-          </div>
+          <form action="{{ route('admin.profile.picture') }}" method="POST" enctype="multipart/form-data"
+            id="adminProfileForm">
+            @csrf
+            @method('PUT')
 
-          <input type="file" id="profileInput" accept="image/*" style="display:none;">
+            <div class="preview-box">
+              <img id="previewImage" src="{{ auth()->guard('admin')->user()->profile_picture
+  ? asset(auth()->guard('admin')->user()->profile_picture)
+  : asset('assets/hunter-x.jpg') }}" alt="Preview">
+            </div>
 
-          <button id="chooseFileBtn" class="choose-btn">Choose File</button>
+            <input type="file" id="profileInput" name="profile_picture" accept="image/*" hidden>
 
-          <div class="popup-actions">
-            <button type="submit" id="saveProfileBtn" class="save-btn">Save</button>
-            <button id="closeProfilePopup" class="cancel-btn">Cancel</button>
-          </div>
+            <button type="button" id="chooseFileBtn" class="choose-btn">
+              Choose File
+            </button>
+
+            <div class="popup-actions">
+              <button type="submit" id="saveProfileBtn" class="save-btn">
+                Save
+              </button>
+              <button type="button" id="closeProfilePopup" class="cancel-btn">
+                Cancel
+              </button>
+            </div>
+          </form>
+
         </div>
       </div>
+
 
       <!-- Personal Information Overlay -->
       <div class="overlay" id="personalOverlay">
         <div class="popup">
           <h3>Personal Information</h3>
-          <form  method="POST">
+
+          {{-- SUCCESS MESSAGE --}}
+          @if(session('success'))
+            <p class="success-msg">{{ session('success') }}</p>
+          @endif
+
+          {{-- VALIDATION ERRORS --}}
+          @if($errors->any())
+            <div class="error-msg">
+              <ul>
+                @foreach($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
+
+          <form method="POST" action="{{ route('admin.profile.update') }}">
             @csrf
             @method('PUT')
-            <label>Name:</label>
-            <input type="text" id="personalName" value="{{$admin->username}}">
-            <label>Email:</label>
-            <input type="email" id="personalEmail" value="{{ $admin->email }}">
-            <label>Faculty ID:</label>
-            <input type="text" id="facultyId" value="{{$admin->id}}" readonly>
-            <label>Role:</label>
-            <input type="text" id="facultyRole" value="{{$admin->role}}" readonly>
+
+            <label for="personalName">Name:</label>
+            <input type="text" id="personalName" name="name" value="{{ old('name', $admin->name) }}" required>
+
+            <label for="personalEmail">Email:</label>
+            <input type="email" id="personalEmail" name="email" value="{{ old('email', $admin->email) }}" required>
+
+            <label for="facultyId">Faculty ID:</label>
+            <input type="text" value="{{ $admin->id }}" readonly>
+
+            <label for="facultyRole">Role:</label>
+            <input type="text" value="{{ $admin->role }}" readonly>
+
             <div class="popup-actions">
-              <button type="submit" id="savePersonal" class="save-btn">Save</button>
-              <button id="closePersonal" class="cancel-btn">Cancel</button>
+              <button type="submit" class="save-btn">
+                Save
+              </button>
+
+              <button type="button" id="closePersonal" class="cancel-btn">
+                Cancel
+              </button>
             </div>
           </form>
         </div>
@@ -78,29 +134,44 @@
       <div class="overlay" id="accountOverlay">
         <div class="popup">
           <h3>Change Password</h3>
-          <form action="update-password" method="POST">
+
+          <form action="{{ route('admin.profile.change_pass') }}" method="POST">
             @csrf
             @method('PUT')
+
             <label>Old Password:</label>
-            <input type="password" id="oldPassword">
+            <input type="password" name="old_password" required>
+
             <label>New Password:</label>
-            <input type="password" id="newPassword">
+            <input type="password" name="new_password" required>
+
             <label>Confirm Password:</label>
-            <input type="password" id="confirmPassword">
+            <input type="password" name="new_password_confirmation" required>
+
             <div class="popup-actions">
-              <button id="savePassword" class="save-btn">Save</button>
-              <button id="closeAccount" class="cancel-btn">Cancel</button>
+              <button type="submit" class="save-btn">
+                Save
+              </button>
+              <button type="button" id="closeAccount" class="cancel-btn">
+                Cancel
+              </button>
             </div>
           </form>
-
         </div>
       </div>
+
 
       <div class="buttons">
         <button class="btn" id="personalBtn">Personal Information</button>
         <a href="{{ route('bookinghistory') }}" class="btn">Booking History</a>
         <button class="btn" id="accountBtn">Change Password</button>
-        <button class="btn-logout">Logout</button>
+        <form action="{{ route('admin.logout') }}" method="POST" class="logout-form">
+          @csrf
+          <button type="submit" class="btn-logout">
+            Logout
+          </button>
+        </form>
+
       </div>
     </div>
     <!-- Bottom Logos -->
@@ -112,8 +183,6 @@
       <img src="{{asset('assets/cte.png')}}" alt="Logo 5">
     </div>
   </div>
-  <script>
-  </script>
   <script src="{{asset('js/script.js')}}"></script>
 </body>
 

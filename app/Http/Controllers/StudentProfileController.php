@@ -12,13 +12,14 @@ class StudentProfileController extends Controller
 
     public function profile()
     {
-        return view('students.profile');
+        $student = Auth::guard('student')->user();
+        return view('students.profile', compact('student'));
     }
 
     public function profileEditPage()
     {
         $student = Auth::guard('student')->user();
-        return view('students.profile-edit',compact('student'));
+        return view('students.profile-edit', compact('student'));
     }
 
     public function profileChangePassPage()
@@ -79,7 +80,6 @@ class StudentProfileController extends Controller
             ->with('success', 'Password changed successfully.');
     }
 
-
     public function updateProfilePicture(Request $request)
     {
         $student = Auth::guard('student')->user();
@@ -88,14 +88,19 @@ class StudentProfileController extends Controller
             'profile_picture' => 'required|image|max:2048',
         ]);
 
-        $file = $request->file('profile_picture');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('uploads/profile_pictures'), $fileName);
+        $fileName = time() . '_' . $request->profile_picture->getClientOriginalName();
+        $request->profile_picture->move(
+            public_path('uploads/profile_pictures'),
+            $fileName
+        );
 
-        $student->profile_picture = 'uploads/profile_pictures/' . $fileName;
-        $student->save();
+        $student->update([
+            'profile_picture' => 'uploads/profile_pictures/' . $fileName
+        ]);
 
-        return redirect()->route('student.profile')->with('success', 'Profile picture updated successfully.');
+        return redirect()
+            ->route('student.profile')
+            ->with('success', 'Profile picture updated successfully.');
     }
 
 

@@ -53,7 +53,18 @@ Route::prefix('admin')
 
         // Notifications & profile
         Route::get('notifications', [FacilityController::class, 'notifications'])->name('notifications');
-        Route::get('profile', [AdminProfileController::class, 'profile'])->name('profile');
+
+
+
+
+
+        Route::get('profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
+        Route::put('profile-change-pass', [AdminProfileController::class, 'adminChangePass'])->name('admin.profile.change_pass');
+        Route::put('profile-info', [AdminProfileController::class, 'adminEditProfile'])->name('admin.profile.update');
+        Route::put('profile-picture', [AdminProfileController::class, 'adminChangeProfile'])->name('admin.profile.picture');
+        Route::post('logout', [AdminProfileController::class, 'adminLogout'])->name('admin.logout');
+
+
 
         // Facility manager (dynamic)
         Route::get('facility/{id}', [FacilityController::class, 'facilityView'])
@@ -125,9 +136,14 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::get('bookings/history', [StudentController::class, 'history'])
         ->name('student.booking-history');
 
+    Route::post(
+        '/student/profile-picture',
+        [StudentProfileController::class, 'updateProfilePicture']
+    )->name('student.profile_picture.update');
+
     //booking confirmation page
     Route::get('/booking-confirmation/{id}', [BookingController::class, 'bookingSlip'])
         ->name('student.booking-confirmation');
 
-    Route::post('/logout', [StudentController::class, 'studentLogout'])->name('student.logout');
+    Route::post('/logout/{id}', [StudentController::class, 'studentLogout'])->name('student.logout');
 });

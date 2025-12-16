@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('year_level');
             $table->string('department');
+            $table->string('profile_picture')->nullable();
             $table->string('password');
             $table->timestamps();
         });

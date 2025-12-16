@@ -18,6 +18,7 @@ class StudentSeeder extends Seeder
                 'email' => 'ralphpetallo@snsu.edu',
                 'password' => Hash::make('ralphpetallo'),
                 'year_level' => '3rd Year',
+                'profile_picture' => NULL,
                 'department' => 'IT Department',
                 'created_at' => now(),
                 'updated_at' => now(),

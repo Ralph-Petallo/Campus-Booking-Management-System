@@ -28,13 +28,13 @@ class StudentController extends Controller
         return view('students.booking-form');
     }
 
-    public function studentLogout(request $request)
+    public function studentLogout(Request $request)
     {
         Auth::guard('student')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        return redirect()->route('student.login');
+        return redirect()->route('login');
 
     }
 

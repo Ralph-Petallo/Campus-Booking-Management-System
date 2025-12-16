@@ -25,23 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
         row.querySelectorAll('.confirm, .cancel').forEach(button => button.disabled = true);
     }
 
-
-    if (manageBtn) {
-        manageBtn.addEventListener('click', function () {
-            window.location.href = 'dashboard.html';
-        });
-    }
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function (event) {
-            event.preventDefault();
-            const confirmLogout = confirm("Are you sure you want to log out?");
-            if (confirmLogout) {
-                window.location.href = routes.login;
-            }
-        });
-    }
-
     if (availableBtn) {
         availableBtn.addEventListener('click', function (event) {
             event.preventDefault();
@@ -125,16 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('oldPassword').focus();
     });
 
-    // Save Password
-    document.getElementById('savePassword').addEventListener('click', () => {
-        const oldPass = document.getElementById('oldPassword').value;
-        const newPass = document.getElementById('newPassword').value;
-        const confirmPass = document.getElementById('confirmPassword').value;
-        if (!oldPass || !newPass || !confirmPass) { alert('Fill all fields'); return; }
-        if (newPass !== confirmPass) { alert('Passwords do not match'); return; }
-        alert('Password changed successfully!');
-        accountOverlay.style.display = 'none';
-    });
 
     bookingBtn.addEventListener('click', () => {
         window.location.href = '/bookinghistory'; // your booking history route
